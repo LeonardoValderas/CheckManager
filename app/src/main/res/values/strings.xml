@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Check Manager</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="receiver_title_foto">FOTO</string>
+    <string name="fecha_de_vencimiento">Fecha de Vencimiento</string>
+    <string name="hint_amount_receiver">Ingrese el importe de cheque</string>
+    <string name="hint_number_receiver">Ingrese el número de cheque</string>
+    <string name="hint_origin_receiver">Quien te dio el cheque?</string>
+    <string name="receiver_name">Recibir Cheque</string>
+    <string name="receiver_title_list">Consultar</string>
+    <string name="receiver_title_add">Cargar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_init">Guardando cheque...</string>
+    <string name="add_complete">Cheque guardado</string>
+    <string name="main.message.picture.source">Selecciona una foto</string>
+    <string name="main.error.dispatch.camera">Error al crear archivo</string>
+
+
+</resources>
