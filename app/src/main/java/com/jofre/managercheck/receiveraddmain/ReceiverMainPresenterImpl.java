@@ -1,7 +1,7 @@
-package com.jofre.managercheck.receivermain;
+package com.jofre.managercheck.receiveraddmain;
 
-import com.jofre.managercheck.receivermain.events.ReceiverMainEvent;
-import com.jofre.managercheck.receivermain.ui.ReceiverMainView;
+import com.jofre.managercheck.receiveraddmain.events.ReceiverMainEvent;
+import com.jofre.managercheck.receiveraddmain.ui.ReceiverMainView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

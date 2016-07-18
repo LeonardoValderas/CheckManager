@@ -1,10 +1,11 @@
 package com.jofre.managercheck.receiveradd;
 
+import android.content.Context;
+
 import com.jofre.managercheck.entities.Check;
 import com.jofre.managercheck.lib.base.EventBus;
 import com.jofre.managercheck.receiveradd.events.ReceiverAddEvent;
 import com.jofre.managercheck.receiveradd.ui.ReceiverAddView;
-import com.jofre.managercheck.receivermain.events.ReceiverMainEvent;
 
 
 import org.greenrobot.eventbus.Subscribe;
@@ -35,12 +36,25 @@ public class ReceiverAddPresenterImpl implements ReceiverAddPresenter {
     }
 
     @Override
-    public void saveCheck(Check check) {
+    public void siUpdate(Check check) {
+        if(this.view != null)
+        view.isUpdateIUElemente(check);
+    }
+
+    @Override
+    public void saveCheck(Check check, Context context) {
         if (this.view != null) {
-            view.hideUIComponent();
-            view.showProgress();
+            view.unableUIComponent();
         }
-        interactor.saveCheck(check);
+        interactor.saveCheck(check,context);
+    }
+
+    @Override
+    public void updateCheck(Check check, Context context) {
+        if (this.view != null) {
+            view.unableUIComponent();
+        }
+        interactor.updateCheck(check, context);
     }
 
     @Override
@@ -49,12 +63,11 @@ public class ReceiverAddPresenterImpl implements ReceiverAddPresenter {
         if (this.view != null) {
             String error = event.getError();
             if (error == null) {
-                view.hideProgress();
-                view.showUIComponent();
+                view.enableUIComponent();
+                view.cleanUIComponent();
                 view.onAddComplete();
             } else {
-                view.hideProgress();
-                view.showUIComponent();
+                view.enableUIComponent();
                 view.onAddError(error);
             }
         }

@@ -1,6 +1,7 @@
 package com.jofre.managercheck.receiveradd.ui;
 
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -18,17 +19,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.jofre.managercheck.ManagerCheckApp;
 import com.jofre.managercheck.R;
+import com.jofre.managercheck.auxiliary.AuxiliaryGeneral;
 import com.jofre.managercheck.entities.Check;
+import com.jofre.managercheck.lib.base.ImageLoader;
 import com.jofre.managercheck.receiveradd.ReceiverAddPresenter;
+import com.jofre.managercheck.receiveradd.di.ReceiverAddComponent;
+import com.jofre.managercheck.receiveraddmain.Communicator;
 import com.raizlabs.android.dbflow.data.Blob;
 
 import java.io.ByteArrayOutputStream;
@@ -37,27 +41,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ReceiverAddFragment extends Fragment implements ReceiverAddView {
-
-
     @Bind(R.id.editTextNumber)
     EditText editTextNumber;
-    @Bind(R.id.imgButtonMaturities)
-    ImageButton imgButtonMaturities;
+    //    @Bind(R.id.imgButtonMaturities)
+//    ImageButton imgButtonMaturities;
     @Bind(R.id.editTextAmount)
     EditText editTextAmount;
     @Bind(R.id.editTextOrigin)
@@ -70,19 +69,44 @@ public class ReceiverAddFragment extends Fragment implements ReceiverAddView {
     FloatingActionButton fab;
     @Bind(R.id.main_content)
     CoordinatorLayout mainContent;
-    @Bind(R.id.progressBar)
-    ProgressBar progressBar;
     @Bind(R.id.relativeContent)
     RelativeLayout relativeContent;
+    @Bind(R.id.editTextExpiration)
+    EditText editTextExpiration;
+//    @Bind(R.id.textExpiration)
+//    TextView textExpiration;
 
+    private Communicator communicator;
+    private ImageLoader imageLoader;
     private String photoPath;
     private static final int REQUEST_PICTURE = 0;
-    @Inject
+    private DatePickerDialog.OnDateSetListener d;
+    private boolean update = false;
+    AuxiliaryGeneral auxiliaryGeneral = AuxiliaryGeneral.getInstance(getActivity());
     ReceiverAddPresenter presenter;
-
     Check check = new Check();
+    private Calendar calendar = Calendar.getInstance();
+    private SimpleDateFormat formate = new SimpleDateFormat(
+            "dd-MM-yyyy");
+    private Date date = new Date();
+    private ReceiverAddComponent component;
 
     public ReceiverAddFragment() {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        communicator = (Communicator) getActivity();
+        setupInjection();
+        OnClickdatePicker();
+        presenter.onCreate();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle state) {
+        super.onActivityCreated(state);
+        isUpdate();
     }
 
     @Override
@@ -93,22 +117,34 @@ public class ReceiverAddFragment extends Fragment implements ReceiverAddView {
         return view;
     }
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setupInjection();
-        presenter.onCreate();
+    private void isUpdate() {
+        update = getActivity().getIntent().getBooleanExtra("update", false);
+        if (update) {
+//            Check check = new Check();
+            check.setId_check(getActivity().getIntent().getIntExtra("id", 0));
+            check.setNumber(getActivity().getIntent().getStringExtra("number"));
+            check.setAmount(getActivity().getIntent().getStringExtra("amount"));
+            check.setOrigin(getActivity().getIntent().getStringExtra("origin"));
+            byte[] b = getActivity().getIntent().getByteArrayExtra("photo");
+            //check.setPhoto(new Blob(b));
+            check.setPhoto(b);
+            //check.setExpiration((Date) getActivity().getIntent().getSerializableExtra("expiration"));
+            check.setExpiration(getActivity().getIntent().getStringExtra("expiration"));
+            presenter.siUpdate(check);
+        }
     }
 
-    // @OnClick(R.id.fab)
+    private void setupInjection() {
+        ManagerCheckApp app = (ManagerCheckApp) getActivity().getApplication();
+        component = app.getReceiverAddComponent(this, this);
+        imageLoader = component.getImageLoader();
+        presenter = component.getPresenter();
+    }
+
     @OnClick(R.id.imgReceiver)
     public void takePicture() {
         Intent chooserIntent = null;
-
         List<Intent> intentList = new ArrayList<>();
-
         Intent pickIntent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -121,17 +157,14 @@ public class ReceiverAddFragment extends Fragment implements ReceiverAddView {
                 intentList = addIntentsToList(intentList, takePhotoIntent);
             }
         }
-
         if (pickIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             intentList = addIntentsToList(intentList, pickIntent);
         }
-
         if (intentList.size() > 0) {
             chooserIntent = Intent.createChooser(intentList.remove(intentList.size() - 1),
                     getString(R.string.main_message_picture_source));
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toArray(new Parcelable[]{}));
         }
-
         startActivityForResult(chooserIntent, REQUEST_PICTURE);
     }
 
@@ -164,29 +197,37 @@ public class ReceiverAddFragment extends Fragment implements ReceiverAddView {
         if (resultCode == getActivity().RESULT_OK && requestCode == REQUEST_PICTURE) {
             boolean isCamera = (data == null ||
                     data.getData() == null);
-
+            Bitmap bitmap;
             if (isCamera) {
-                addPicToGallery();
+                 bitmap = auxiliaryGeneral.SeleccionarImagen(data, photoPath,true);
+                if(bitmap == null) {
+                     addPicToGallery();
+                    //photoPath = getRealPathFromURI(data.getData());
+                    //bitmap = BitmapFactory.decodeFile(photoPath);
+                }
             } else {
                 photoPath = getRealPathFromURI(data.getData());
+               bitmap= BitmapFactory.decodeFile(photoPath);
+                //setImageView(photoPath);
             }
-
-            setImageView(photoPath);
-            //presenter.uploadPhoto(lastLocation, photoPath);
+          //  if(bitmap != null)
+            setImageView(bitmap);
         }
     }
+    private void setImageView(Bitmap bitmap) {
 
-    private void setImageView(String photoPath) {
-        Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
+//        private void setImageView(String photoPath) {
+        if(bitmap == null)
+        bitmap = BitmapFactory.decodeFile(photoPath);
 
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
 
         if (bitmap != null) {
-            imgReceiver.setImageBitmap(bitmap);
             byte[] byteArray = bytes.toByteArray();
-
-            check.setPhoto(new Blob((byteArray)));
+            imageLoader.load(imgReceiver, byteArray);
+         //   check.setPhoto(new Blob((byteArray)));
+            check.setPhoto(byteArray);
         }
     }
 
@@ -203,11 +244,9 @@ public class ReceiverAddFragment extends Fragment implements ReceiverAddView {
                     File file = File.createTempFile("tempImg", ".jpg", getActivity().getCacheDir());
                     InputStream input = getActivity().getContentResolver().openInputStream(contentURI);
                     OutputStream output = new FileOutputStream(file);
-
                     try {
                         byte[] buffer = new byte[4 * 1024];
                         int read;
-
                         while ((read = input.read(buffer)) != -1) {
                             output.write(buffer, 0, read);
                         }
@@ -217,7 +256,6 @@ public class ReceiverAddFragment extends Fragment implements ReceiverAddView {
                         output.close();
                         input.close();
                     }
-
                 } catch (Exception e) {
                 }
             } else {
@@ -226,7 +264,6 @@ public class ReceiverAddFragment extends Fragment implements ReceiverAddView {
                 result = cursor.getString(dataColumn);
                 cursor.close();
             }
-
         }
         return result;
     }
@@ -241,13 +278,9 @@ public class ReceiverAddFragment extends Fragment implements ReceiverAddView {
     }
 
     @Override
-    public void onAddInit() {
-        showSnackbar(getString(R.string.add_init));
-    }
-
-    @Override
     public void onAddComplete() {
         showSnackbar(getString(R.string.add_complete));
+        communicator.refresh();
     }
 
     @Override
@@ -258,25 +291,22 @@ public class ReceiverAddFragment extends Fragment implements ReceiverAddView {
     public void showSnackbar(String msg) {
         Snackbar.make(mainContent, msg, Snackbar.LENGTH_SHORT).show();
     }
-
     @Override
-    public void hideUIComponent() {
-        relativeContent.setVisibility(View.GONE);
+    public void enableUIComponent() {
+        enableComponent(true);
     }
-
     @Override
-    public void showUIComponent() {
-        relativeContent.setVisibility(View.VISIBLE);
+    public void unableUIComponent() {
+        enableComponent(false);
     }
-
     @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
+    public void cleanUIComponent() {
+        check = new Check();
+        editTextNumber.setText("");
+        editTextAmount.setText("");
+        editTextExpiration.setText("");
+        editTextOrigin.setText("");
+        imgReceiver.setImageResource(android.R.drawable.ic_menu_camera);
     }
 
     @Override
@@ -284,32 +314,67 @@ public class ReceiverAddFragment extends Fragment implements ReceiverAddView {
     public void saveCheck() {
         check.setNumber(editTextNumber.getText().toString());
         check.setAmount(editTextAmount.getText().toString());
-        check.setExpiration(getDate());
         check.setOrigin(editTextOrigin.getText().toString());
-        presenter.saveCheck(check);
+        if (!update)
+            presenter.saveCheck(check, getActivity());
+        else
+            presenter.updateCheck(check,getActivity());
+        update = false;
     }
 
-    //pasar a util
-    public Date getDate() {
-        Date currentDate;
-        return currentDate = new Date(System.currentTimeMillis());
+    @Override
+    public void isUpdateIUElemente(Check check) {
+        editTextNumber.setText(check.getNumber().toString());
+        editTextAmount.setText(check.getAmount().toString());
+        editTextExpiration.setText(check.getExpiration());
+        editTextOrigin.setText(check.getOrigin().toString());
+        if (check.getPhoto() != null)
+            imageLoader.load(imgReceiver, check.getPhoto());
+        else
+            imgReceiver.setImageResource(android.R.drawable.ic_menu_camera);
     }
 
     @Override
     public void onDestroy() {
-        //presenter.unsubscribe();
         presenter.onDestroy();
         super.onDestroy();
     }
 
-    private void setupInjection() {
-        ManagerCheckApp app = (ManagerCheckApp) getActivity().getApplication();
-
-        app.getReceiverAddComponent(this).inject(this);
+    public void enableComponent(boolean isEnable) {
+        relativeContent.setEnabled(isEnable);
     }
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        ButterKnife.unbind(this);
-//    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+    @OnClick(R.id.editTextExpiration)
+    public void getDate() {
+        new DatePickerDialog(getActivity(), d, calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    public void OnClickdatePicker() {
+        d = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, monthOfYear);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                setDate();
+            }
+        };
+    }
+
+    public void setDate() {
+        date = calendar.getTime();
+        if (date != null) {
+            String dateStg = formate.format(calendar.getTime());
+            editTextExpiration.setText(dateStg);
+            check.setExpiration(dateStg);
+        }
+    }
 }

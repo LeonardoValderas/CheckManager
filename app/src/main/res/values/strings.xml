@@ -10,7 +10,9 @@
     <string name="hint_amount_receiver">Ingrese el importe de cheque</string>
     <string name="hint_number_receiver">Ingrese el número de cheque</string>
     <string name="hint_origin_receiver">Quien te dio el cheque?</string>
-    <string name="receiver_name">Recibir Cheque</string>
+    <string name="hint_expirate_receiver">Ingrese la fecha de vencimiento</string>
+
+    <string name="receiver_name_add">Recibir Cheque</string>
     <string name="receiver_title_list">Consultar</string>
     <string name="receiver_title_add">Cargar</string>
 
@@ -20,6 +22,7 @@
     <string name="add_complete">Cheque guardado</string>
     <string name="main.message.picture.source">Selecciona una foto</string>
     <string name="main.error.dispatch.camera">Error al crear archivo</string>
+    <string name="check_delete">Cheque elimando.</string>
 
 
 </resources>

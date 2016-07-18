@@ -1,25 +1,27 @@
-package com.jofre.managercheck.receivermain.ui;
+package com.jofre.managercheck.receiveraddmain.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.jofre.managercheck.R;
 import com.jofre.managercheck.receiveradd.ui.ReceiverAddFragment;
-import com.jofre.managercheck.receiverlist.ui.ReceiverListFragment;
-import com.jofre.managercheck.receivermain.ReceiverMainPresenter;
+import com.jofre.managercheck.receiveraddlist.ui.ReceiverAddListFragment;
+import com.jofre.managercheck.receiveraddmain.Communicator;
+import com.jofre.managercheck.receiveraddmain.ReceiverMainPresenter;
 import com.jofre.managercheck.entities.Check;
-import com.jofre.managercheck.receivermain.ui.adapters.ReceiverSectionsPagerAdapter;
+import com.jofre.managercheck.receiveraddmain.ui.adapters.ReceiverSectionsPagerAdapter;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ReceiverMainActivity extends AppCompatActivity {
+public class ReceiverMainActivity extends AppCompatActivity implements Communicator {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -56,8 +58,9 @@ public class ReceiverMainActivity extends AppCompatActivity {
 
     private void setupNavigation() {
         //  PhotoFeedApp app = (PhotoFeedApp) getApplication();
-        // toolbar.setTitle(email);
+         toolbar.setTitle(getString(R.string.receiver_name_add));
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager.setAdapter(adapter);
         tabs.setupWithViewPager(viewPager);
@@ -68,12 +71,21 @@ public class ReceiverMainActivity extends AppCompatActivity {
                 getString(R.string.receiver_title_list)};
 
         Fragment[] fragments = new Fragment[]{new ReceiverAddFragment(),
-                new ReceiverListFragment()};
+                new ReceiverAddListFragment()};
         adapter = new ReceiverSectionsPagerAdapter(getSupportFragmentManager(), titles, fragments);
 //        PhotoFeedApp app = (PhotoFeedApp) getApplication();
 //        app.getMainComponent(this, getSupportFragmentManager(), fragments, titles).inject(this);
     }
 
+    public void refresh() {
+        FragmentManager manager = getSupportFragmentManager();
+        ReceiverAddListFragment fragment = (ReceiverAddListFragment) manager
+                .findFragmentByTag("android:switcher:" + viewPager.getId()
+                        + ":" + 1);
+
+        fragment.getChecks();
+
+    }
 //    @OnClick(R.id.fab)
 //    public void takePicture() {
 //        Intent chooserIntent = null;

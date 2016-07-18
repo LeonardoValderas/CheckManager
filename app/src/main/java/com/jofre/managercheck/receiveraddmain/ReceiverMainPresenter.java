@@ -1,6 +1,6 @@
-package com.jofre.managercheck.receivermain;
+package com.jofre.managercheck.receiveraddmain;
 
-import com.jofre.managercheck.receivermain.events.ReceiverMainEvent;
+import com.jofre.managercheck.receiveraddmain.events.ReceiverMainEvent;
 
 /**
  * Created by LEO on 3/7/2016.

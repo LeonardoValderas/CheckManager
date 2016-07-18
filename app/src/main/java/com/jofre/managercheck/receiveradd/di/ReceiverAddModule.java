@@ -1,6 +1,10 @@
 package com.jofre.managercheck.receiveradd.di;
 
+import android.support.v4.app.Fragment;
+
+import com.jofre.managercheck.lib.GlideImageLoader;
 import com.jofre.managercheck.lib.base.EventBus;
+import com.jofre.managercheck.lib.base.ImageLoader;
 import com.jofre.managercheck.receiveradd.ReceiverAddInteractor;
 import com.jofre.managercheck.receiveradd.ReceiverAddInteractorImpl;
 import com.jofre.managercheck.receiveradd.ReceiverAddPresenter;
@@ -20,9 +24,11 @@ import dagger.Provides;
 @Module
 public class ReceiverAddModule {
     ReceiverAddView view;
+    Fragment fragment;
 
     public ReceiverAddModule(ReceiverAddView view) {
         this.view = view;
+      //  this.fragment= fragment;
     }
 
     @Provides
@@ -48,4 +54,13 @@ public class ReceiverAddModule {
     ReceiverAddRepository providesReceiverAddRepository(EventBus eventBus) {
         return new ReceiverAddRepositoryImpl(eventBus);
     }
+//    @Provides
+//    @Singleton
+//    ImageLoader providesImageLoader(Fragment fragment) {
+//        GlideImageLoader imageLoader = new GlideImageLoader();
+//        if (fragment != null) {
+//            imageLoader.setLoaderContext(fragment);
+//        }
+//        return imageLoader;
+//    }
 }

@@ -1,4 +1,4 @@
-package com.jofre.managercheck.receivermain.ui.adapters;
+package com.jofre.managercheck.receiveraddmain.ui.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

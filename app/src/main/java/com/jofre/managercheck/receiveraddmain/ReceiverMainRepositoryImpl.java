@@ -1,4 +1,4 @@
-package com.jofre.managercheck.receivermain;
+package com.jofre.managercheck.receiveraddmain;
 
 import org.greenrobot.eventbus.EventBus;
 

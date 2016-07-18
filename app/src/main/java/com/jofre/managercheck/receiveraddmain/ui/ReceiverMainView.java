@@ -1,4 +1,4 @@
-package com.jofre.managercheck.receivermain.ui;
+package com.jofre.managercheck.receiveraddmain.ui;
 
 /**
  * Created by LEO on 3/7/2016.

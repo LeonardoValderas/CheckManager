@@ -14,8 +14,6 @@ import dagger.Provides;
 @Module
 public class ManagerCheckAppModule {
     Application application;
-    private final static String SHARED_PREFERENCES_NAME = "UserPrefs";
-
     public ManagerCheckAppModule(Application application) {
         this.application = application;
     }

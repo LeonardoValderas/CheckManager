@@ -1,4 +1,4 @@
-package com.jofre.managercheck.receivermain.events;
+package com.jofre.managercheck.receiveraddmain.events;
 
 /**
  * Created by LEO on 3/7/2016.

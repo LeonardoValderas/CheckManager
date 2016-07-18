@@ -1,5 +1,7 @@
 package com.jofre.managercheck.receiveradd;
 
+import android.content.Context;
+
 import com.jofre.managercheck.entities.Check;
 
 /**
@@ -13,7 +15,12 @@ public class ReceiverAddInteractorImpl implements ReceiverAddInteractor {
     }
 
     @Override
-    public void saveCheck(Check check) {
-        repository.saveCheck(check);
+    public void saveCheck(Check check, Context context) {
+        repository.saveCheck(check, context);
+    }
+
+    @Override
+    public void updateCheck(Check check, Context context) {
+        repository.updateCheck(check, context);
     }
 }

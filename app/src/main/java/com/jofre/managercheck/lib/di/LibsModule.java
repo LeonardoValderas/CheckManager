@@ -3,8 +3,10 @@ package com.jofre.managercheck.lib.di;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
+import com.jofre.managercheck.lib.GlideImageLoader;
 import com.jofre.managercheck.lib.GreenRobotEventBus;
 import com.jofre.managercheck.lib.base.EventBus;
+import com.jofre.managercheck.lib.base.ImageLoader;
 import com.jofre.managercheck.lib.base.ImageStorage;
 
 import javax.inject.Singleton;
@@ -18,6 +20,12 @@ import dagger.Provides;
 @Module
 public class LibsModule {
     private Fragment fragment;
+
+    public LibsModule() {
+    }
+    public LibsModule(Fragment fragment) {
+        this.fragment = fragment;
+    }
 
     public void setFragment(Fragment fragment) {
         this.fragment = fragment;
@@ -35,6 +43,17 @@ public class LibsModule {
 //        ImageStorage imageStorage = new CloudinaryImageStorage(context, eventBus);
 //        return imageStorage;
 //    }
+
+
+    @Provides
+    @Singleton
+    ImageLoader providesImageLoader(Fragment fragment) {
+        GlideImageLoader imageLoader = new GlideImageLoader();
+        if (fragment != null) {
+            imageLoader.setLoaderContext(fragment);
+        }
+        return imageLoader;
+    }
 
     @Provides
     @Singleton
