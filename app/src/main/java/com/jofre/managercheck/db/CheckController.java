@@ -91,13 +91,10 @@ public class CheckController {
 
     public List<Check> selectAllCheck() {
 
-        String sql = "SELECT * FROM CHECKS";
+        String sql = "SELECT * FROM CHECKS ORDER BY DESC";
         List<Check> arrayChecks = new ArrayList<Check>();
         String number = null, amount = null, origin = null, date = null;
         int id;
-//
-//        Date d = null;
-//        SimpleDateFormat  df = new SimpleDateFormat("dd-MM-yyyy");
         byte[] photo = null;
         Cursor cursor = null;
         openDataBase();
@@ -119,11 +116,6 @@ public class CheckController {
                                 .getColumnIndex("ORIGIN"));
                         date = cursor.getString(cursor
                                 .getColumnIndex("EXPIRATION"));
-//                        try {
-//                            d = df.parse(date);
-//                        }catch (ParseException e){
-//                            e.printStackTrace();
-//                        }
                         check = new Check(id, number, amount, date, origin, photo);
                         arrayChecks.add(check);
                     }
@@ -142,8 +134,35 @@ public class CheckController {
         amount = null;
         origin = null;
         date = null;
-//        d = null;
         return arrayChecks;
     }
 
+    public boolean deleteCheck(List<Check> checks)
+            throws SQLiteException {
+        boolean result = true;
+        ContentValues cv = new ContentValues();
+        openDataBase();
+        try {
+            for (int i = 0; i <checks.size() ; i++) {
+                long valor = database.delete("CHECKS","ID_CHECK="+ checks.get(i).getId_check(),null);
+                if (valor > 0) {
+                    result = true;
+                    } else {
+                    result = false;
+                    break;
+                }
+            }
+
+            closeDataBase();
+//            if (valor > 0) {
+//                return true;
+//            } else {
+//                return false;
+//            }
+        } catch (SQLiteException e) {
+            closeDataBase();
+         result = false;
+        }
+       return result;
+    }
 }

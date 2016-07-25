@@ -23,6 +23,7 @@
     <string name="main.message.picture.source">Selecciona una foto</string>
     <string name="main.error.dispatch.camera">Error al crear archivo</string>
     <string name="check_delete">Cheque elimando.</string>
+    <string name="title_main">Administrador de Cheques</string>
 
 
 </resources>

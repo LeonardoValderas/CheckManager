@@ -1,6 +1,7 @@
 package com.jofre.managercheck.receiveraddlist.di;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 
 import com.jofre.managercheck.entities.Check;
 import com.jofre.managercheck.lib.base.EventBus;
@@ -31,11 +32,12 @@ public class ReceiverAddListModule {
     ReceiverAddListView view;
     OnItemClickListener onItemClickListener;
     Context context;
-
-    public ReceiverAddListModule(ReceiverAddListView view, OnItemClickListener onItemClickListener, Context context) {
+    Fragment fragment;
+    public ReceiverAddListModule(ReceiverAddListView view, OnItemClickListener onItemClickListener, Context context, Fragment Fragment) {
         this.view = view;
         this.onItemClickListener = onItemClickListener;
         this.context = context;
+        this.fragment = fragment;
     }
 
     @Provides
@@ -58,14 +60,14 @@ public class ReceiverAddListModule {
 
     @Provides
     @Singleton
-    ReceiverAddListRepository providesReceiverAddListRepository(EventBus eventBus) {
-        return new ReceiverAddListRepositoryImpl(eventBus);
+    ReceiverAddListRepository providesReceiverAddListRepository(EventBus eventBus, Context context) {
+        return new ReceiverAddListRepositoryImpl(eventBus, context);
     }
 
     @Provides
     @Singleton
-    ReceiverAddListAdapter providesReceiverAddListAdapter(List<Check> checkList, ImageLoader imageLoader, OnItemClickListener onItemClickListener, Context context) {
-        return new ReceiverAddListAdapter(checkList, imageLoader, onItemClickListener, context);
+    ReceiverAddListAdapter providesReceiverAddListAdapter(List<Check> checkList, ImageLoader imageLoader, OnItemClickListener onItemClickListener, Context context, Fragment fragment) {
+        return new ReceiverAddListAdapter(checkList, imageLoader, onItemClickListener, context,fragment);
     }
 
     @Provides

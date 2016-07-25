@@ -10,6 +10,8 @@ import com.jofre.managercheck.receiveraddlist.ui.ReceiverAddListView;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.List;
+
 /**
  * Created by LEO on 8/7/2016.
  */
@@ -39,13 +41,13 @@ public class ReceiverAddListPresenterImpl implements ReceiverAddListPresenter {
     }
 
     @Override
-    public void removeCheck(Check check) {
-        interactor.removeCheck(check);
+    public void removeCheck(List<Check> checks) {
+        interactor.removeCheck(checks);
     }
 
     @Override
-    public void getChecks(Context context) {
-        interactor.getChecks(context);
+    public void getChecks() {
+        interactor.getChecks();
     }
 
     @Override

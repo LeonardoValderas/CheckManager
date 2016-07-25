@@ -5,4 +5,7 @@ package com.jofre.managercheck.receiveraddmain;
  */
 public interface Communicator {
     void refresh();
+    void actionMode();
+    void updateCounter(int counter);
+    void clearActionMode();
 }

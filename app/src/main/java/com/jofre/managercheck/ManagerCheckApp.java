@@ -64,7 +64,7 @@ public class ManagerCheckApp extends Application{
                 .builder()
                 .managerCheckAppModule(managerCheckAppModule)
                 .libsModule(new LibsModule(fragment))
-                .receiverAddListModule(new ReceiverAddListModule(view, onItemClickListener,context))
+                .receiverAddListModule(new ReceiverAddListModule(view, onItemClickListener,context,fragment))
                 .build();
 
 //        return  null;

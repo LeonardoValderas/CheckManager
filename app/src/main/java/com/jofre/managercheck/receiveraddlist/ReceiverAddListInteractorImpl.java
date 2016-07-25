@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.jofre.managercheck.entities.Check;
 
+import java.util.List;
+
 /**
  * Created by LEO on 8/7/2016.
  */
@@ -15,13 +17,13 @@ public class ReceiverAddListInteractorImpl implements ReceiverAddListInteractor 
     }
 
     @Override
-    public void removeCheck(Check check) {
-        repository.removeCheck(check);
+    public void removeCheck(List<Check> checks) {
+        repository.removeCheck(checks);
     }
 
     @Override
-    public void getChecks(Context context) {
-        repository.selectAll(context);
+    public void getChecks() {
+        repository.selectAll();
     }
 
 }
