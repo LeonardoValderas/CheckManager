@@ -27,9 +27,16 @@ public class GlideImageLoader implements ImageLoader {
         glideRequestManager
                 .load(bytes).asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .override(200, 200)
-                .placeholder(R.drawable.border_rect_linear)
-                .centerCrop()
+                .fitCenter()
+                .into(imageView);
+    }
+
+    @Override
+    public void loadDialog(ImageView imageView, byte[] bytes) {
+        glideRequestManager
+                .load(bytes).asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .fitCenter()
                 .into(imageView);
     }
 }

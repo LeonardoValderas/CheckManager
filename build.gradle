@@ -26,7 +26,6 @@ ext {
 //    targetSdkVersion = 23
 //    compileSdkVersion = 23
 //    buildToolsVersion = '23.0.2'
-
     supportLibraryVersion = '23.1.1'
 
     circleImageViewVersion = '2.0.0'
@@ -37,4 +36,7 @@ ext {
     jsr250Version = '1.0'
     dbflowVersion = '3.0.0-beta3'
 
+    roboelectricVersion = '3.0'
+    mockitoVersion = '1.10.19'
+    junitVersion = '4.12'
 }

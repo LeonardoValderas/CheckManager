@@ -6,138 +6,144 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:paddingBottom="55dp"
+    android:paddingBottom="5dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".receiveraddmain.ui.ReceiverMainActivity">
+    tools:context=".receiveradd.receiveraddmain.ui.ReceiverMainActivity">
 
     <RelativeLayout
         android:id="@+id/relativeContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/linearPhoto"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapperNumber"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margim_receiver"
-                android:hint="@string/hint_number_receiver">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/editTextNumber"
+                <LinearLayout
+                    android:id="@+id/linearPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:orientation="vertical">
 
-            </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/wrapperNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margim_receiver"
+                        android:hint="@string/hint_number_receiver">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapperAmount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margim_receiver"
-                android:hint="@string/hint_amount_receiver">
+                        <EditText
+                            android:id="@+id/editTextNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLength="20"
+                            android:inputType="number" />
 
-                <EditText
-                    android:id="@+id/editTextAmount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
+                    </android.support.design.widget.TextInputLayout>
 
-            </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/wrapperAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margim_receiver"
+                        android:hint="@string/hint_amount_receiver">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapperExpiration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margim_receiver"
-                android:hint="@string/hint_expirate_receiver">
+                        <EditText
+                            android:id="@+id/editTextAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLength="20"
+                            android:inputType="numberDecimal" />
 
-                <EditText
-                    android:id="@+id/editTextExpiration"
+                    </android.support.design.widget.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Fecha de vencimiento"
+                        android:textSize="17dp" />
+
+                    <!--<View-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:layout_margin="@dimen/margim_receiver_view"-->
+                        <!--android:background="#A8A8A0"/>-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/daysExpiration"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="3"
+                            android:maxLength="2"
+                            android:gravity="center"
+                            android:hint="01"
+                            android:inputType="number" />
+
+                        <Spinner
+                            android:id="@+id/monthsExpiration"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="2"
+                            android:background="@drawable/border_style_spinner" />
+
+                        <Spinner
+                            android:id="@+id/yearsExpiration"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="2.3"
+                            android:background="@drawable/border_style_spinner" />
+
+
+                    </LinearLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/wrapperOrigin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margim_receiver"
+                        android:hint="@string/hint_origin_receiver">
+
+                        <EditText
+                            android:id="@+id/editTextOrigin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLength="20"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imgReceiver"
+                    android:layout_width="@dimen/photo_receiver"
+                    android:layout_height="@dimen/photo_receiver"
+                    android:layout_below="@+id/linearPhoto"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/border_rect_linear"
                     android:clickable="true"
-                    android:focusable="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:src="@android:drawable/ic_menu_camera" />
 
-            </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
-            <!--</LinearLayout>-->
-
-            <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="@dimen/margim_receiver"-->
-            <!--android:orientation="horizontal">-->
-
-            <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="@dimen/margim_receiver_text"-->
-            <!--android:layout_weight="1"-->
-            <!--android:orientation="vertical">-->
-
-            <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:gravity="center_horizontal"-->
-            <!--android:text="@string/fecha_de_vencimiento" />-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/textExpiration"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:gravity="center_horizontal"-->
-            <!--android:textSize="18dp"-->
-            <!--android:textStyle="bold" />-->
-
-            <!--</LinearLayout>-->
-
-            <!--<ImageButton-->
-            <!--android:id="@+id/imgButtonMaturities"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="2"-->
-            <!--android:src="@drawable/ic_action_maturities" />-->
-
-
-            <!--</LinearLayout>-->
-
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/wrapperOrigin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margim_receiver"
-                android:hint="@string/hint_origin_receiver">
-
-                <EditText
-                    android:id="@+id/editTextOrigin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </android.support.design.widget.TextInputLayout>
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imgReceiver"
-            android:layout_width="@dimen/photo_receiver"
-            android:layout_height="@dimen/photo_receiver"
-            android:layout_below="@+id/linearPhoto"
-            android:layout_centerInParent="true"
-            android:background="@drawable/border_rect_linear"
-            android:clickable="true"
-            android:src="@android:drawable/ic_menu_camera" />
-
-
+        </ScrollView>
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -146,18 +152,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
-        android:layout_marginBottom="20dp"
         android:src="@android:drawable/ic_menu_save"
         android:tint="@android:color/white"
         app:backgroundTint="@color/colorPrimaryDark" />
-
-    <!--<ProgressBar-->
-    <!--style="?android:attr/progressBarStyleLarge"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/progressBar"-->
-    <!--android:layout_below="@+id/layoutButtons"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:visibility="gone" />-->
 
 </android.support.design.widget.CoordinatorLayout><!--</FrameLayout>-->

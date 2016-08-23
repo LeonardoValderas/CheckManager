@@ -1,5 +1,6 @@
 package com.jofre.managercheck.lib.di;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
@@ -20,15 +21,24 @@ import dagger.Provides;
 @Module
 public class LibsModule {
     private Fragment fragment;
+    private Activity activity;
 
     public LibsModule() {
     }
+
     public LibsModule(Fragment fragment) {
         this.fragment = fragment;
     }
 
+    public LibsModule(Activity activity) {
+        this.activity = activity;
+    }
+
     public void setFragment(Fragment fragment) {
         this.fragment = fragment;
+    }
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     @Provides
@@ -57,7 +67,12 @@ public class LibsModule {
 
     @Provides
     @Singleton
-    Fragment providesFragment(){
+    Fragment providesFragment() {
         return this.fragment;
+    }
+    @Provides
+    @Singleton
+    Activity providesActivity() {
+        return this.activity;
     }
 }

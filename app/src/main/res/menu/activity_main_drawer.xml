@@ -5,15 +5,19 @@
         <item
             android:id="@+id/nav_receiver"
             android:icon="@drawable/ic_action_receiver"
-            android:title="Recibir Cheque" />
+            android:title="@string/receiver_item_nav" />
         <item
-            android:id="@+id/nav_sender"
+            android:id="@+id/nav_sender_own"
             android:icon="@drawable/ic_action_sender"
-            android:title="Entregar Cheque" />
+            android:title="@string/delivery_own_item_nav" />
+        <item
+            android:id="@+id/nav_sender_other"
+            android:icon="@drawable/ic_action_sender"
+            android:title="@string/delivery_other_nav" />
         <item
             android:id="@+id/nav_maturities"
             android:icon="@drawable/ic_action_maturities"
-            android:title="Vencimientos" />
+            android:title="@string/maturities_item_nav" />
     </group>
 
     <!--<item android:title="Communicate">-->
