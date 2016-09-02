@@ -8,7 +8,7 @@ import java.util.List;
  * Created by LEO on 3/7/2016.
  */
 public interface DeliveryOtherFragmentListView {
-    void emptyList(String empty);
+    //void emptyList(String empty);
     void errorShowList(String error);
     void errorDelete(String error);
     void successDelete(String success);

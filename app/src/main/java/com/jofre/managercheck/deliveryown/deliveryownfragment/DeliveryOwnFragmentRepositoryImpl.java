@@ -34,7 +34,7 @@ public class DeliveryOwnFragmentRepositoryImpl implements DeliveryOwnFragmentRep
         } else {
             try {
                 instanceController(context);
-                if (checkController.insertCheckOwn(check))
+                if (checkController.insertCheck(check))
                     post();
                 else
                     post("Error al guardar el cheque.");
@@ -58,7 +58,7 @@ public class DeliveryOwnFragmentRepositoryImpl implements DeliveryOwnFragmentRep
             post("Ingrese el origen del cheque.");
         } else {
             instanceController(context);
-            if (checkController.updateCheckOwn(check))
+            if (checkController.updateCheck(check))
                 post();
             else
                 post("Error al actualizar el cheque.");

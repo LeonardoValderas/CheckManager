@@ -14,7 +14,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {DeliveryOwnFragmentModule.class,LibsModule.class})
 public interface DeliveryOwnFragmentComponent {
-//void inject(ReceiverAddFragment fragment);
+//void inject(ReceiverFragment fragment);
 ImageLoader getImageLoader();
 DeliveryOwnFragmentPresenter getPresenter();
 }

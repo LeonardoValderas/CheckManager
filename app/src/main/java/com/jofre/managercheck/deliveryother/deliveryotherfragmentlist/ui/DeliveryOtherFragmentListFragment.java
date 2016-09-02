@@ -19,8 +19,8 @@ import com.jofre.managercheck.deliveryother.deliveryotherfragmentlist.DeliveryOt
 import com.jofre.managercheck.deliveryother.deliveryotherfragmentlist.ui.adapters.DeliveryOtherFragmentListAdapter;
 import com.jofre.managercheck.deliveryother.deliveryotherfragmentlist.ui.adapters.OnItemClickListener;
 import com.jofre.managercheck.deliveryother.deliveryotherfragmentlist.ui.alerts.DeliveryOtherFragmentListImageAdapter;
-import com.jofre.managercheck.deliveryown.deliveryownmainactivity.Communicator;
-import com.jofre.managercheck.deliveryown.deliveryownmainactivity.ui.DeliverOwnMainActivity;
+import com.jofre.managercheck.deliveryother.deliveryothermainactivity.Communicator;
+import com.jofre.managercheck.deliveryother.deliveryothermainactivity.ui.DeliveryOtherMainActivity;
 import com.jofre.managercheck.entities.Check;
 import com.jofre.managercheck.lib.base.ImageLoader;
 
@@ -69,19 +69,19 @@ public class DeliveryOtherFragmentListFragment extends Fragment implements Deliv
         super.onCreate(savedInstanceState);
         setupInjection();
         presenter.onCreate();
-        communicator = (Communicator) getActivity();
+      //  communicator = (Communicator) getActivity();
         getChecks();
     }
 
-    public void deleteClick() {
-        presenter.removeCheck(checks_select);
-        DeliveryOtherFragmentListAdapter checkAdapter = (DeliveryOtherFragmentListAdapter) adapter;
-        checkAdapter.updateAdapter(checks_select);
-        communicator.clearActionMode();
-    }
+//    public void deleteClick() {
+//        presenter.removeCheck(checks_select);
+//        DeliveryOtherFragmentListAdapter checkAdapter = (DeliveryOtherFragmentListAdapter) adapter;
+//        checkAdapter.updateAdapter(checks_select);
+//        //communicator.clearActionMode();
+//    }
 
     private void setupRecyclerView() {
-        textTitleList.setText(getString(R.string.delivery_own_list));
+        textTitleList.setText(getString(R.string.delivery_other_delivery));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
@@ -98,10 +98,10 @@ public class DeliveryOtherFragmentListFragment extends Fragment implements Deliv
 //        ButterKnife.unbind(this);
 //    }
 
-    @Override
-    public void emptyList(String empty) {
-        Snackbar.make(frameList, empty, Snackbar.LENGTH_SHORT).show();
-    }
+//    @Override
+//    public void emptyList(String empty) {
+////        Snackbar.make(frameList, empty, Snackbar.LENGTH_SHORT).show();
+//    }
 
     @Override
     public void errorShowList(String error) {
@@ -125,48 +125,48 @@ public class DeliveryOtherFragmentListFragment extends Fragment implements Deliv
 
     @Override
     public void setChecks(List<Check> checks) {
-        if (checks != null && checks.size() > 0) {
+        if (checks != null) {
             this.checks = checks;
             adapter.setChecks(checks);
         }
     }
 
-    @Override
-    public void onDeleteClick(List<Check> checks) {
-        presenter.removeCheck(checks);
-    }
+//    @Override
+//    public void onDeleteClick(List<Check> checks) {
+//        presenter.removeCheck(checks);
+//    }
 
     @Override
     public void onShowImageClick(ImageLoader imageLoader, Check check) {
         new DeliveryOtherFragmentListImageAdapter(getContext(), imageLoader, check);
     }
 
-    @Override
-    public void onEditClick(Check check) {
-        intentEditCheck(check);
-    }
+//    @Override
+//    public void onEditClick(Check check) {
+//        intentEditCheck(check);
+//    }
 
-    @Override
-    public void onClickLinearLayout(View v, int position, boolean isSelected) {
-        if (!isSelected) {
-            checks_select.add(checks.get(position));
-            counter = counter + 1;
-            communicator.updateCounter(counter);
-        } else {
-            checks_select.remove(checks.get(position));
-            counter = counter - 1;
-            communicator.updateCounter(counter);
-        }
-    }
+//    @Override
+//    public void onClickLinearLayout(View v, int position, boolean isSelected) {
+//        if (!isSelected) {
+//            checks_select.add(checks.get(position));
+//            counter = counter + 1;
+//         //   communicator.updateCounter(counter);
+//        } else {
+//            checks_select.remove(checks.get(position));
+//            counter = counter - 1;
+//           // communicator.updateCounter(counter);
+//        }
+//    }
 
-    @Override
-    public void onLongClickLinearLayout(View v, int position, boolean isSelected) {
-        is_action_mode = true;
-        counter = 1;
-        communicator.actionMode();
-        communicator.updateCounter(counter);
-        checks_select.add(checks.get(position));
-    }
+//    @Override
+//    public void onLongClickLinearLayout(View v, int position, boolean isSelected) {
+//        is_action_mode = true;
+//        counter = 1;
+//      //  communicator.actionMode();
+//       // communicator.updateCounter(counter);
+//        checks_select.add(checks.get(position));
+//    }
 
     @Override
     public void onDestroy() {
@@ -178,29 +178,29 @@ public class DeliveryOtherFragmentListFragment extends Fragment implements Deliv
         presenter.getChecks();
     }
 
-    public void intentEditCheck(Check check) {
-        Intent intent = new Intent(getActivity(), DeliverOwnMainActivity.class);
-        intent.putExtra("update", true);
-        intent.putExtra("id", check.getId_check());
-        intent.putExtra("number", check.getNumber());
-        intent.putExtra("amount", check.getAmount());
-        intent.putExtra("expiration", check.getExpiration());
-        intent.putExtra("origin", check.getOrigin());
-        intent.putExtra("photo", check.getPhoto());
-        startActivity(intent);
+    public void updateRecycler() {
+        presenter.getChecks();
+        setupRecyclerView();
     }
 
-//    @Override
-//    public boolean onLongClick(View v) {
-//        is_action_mode = true;
-//        communicator.actionMode();
-//        return true;
+
+    //    public void intentEditCheck(Check check) {
+//        Intent intent = new Intent(getActivity(), DeliveryOtherMainActivity.class);
+//        intent.putExtra("update", true);
+//        intent.putExtra("id", check.getId_check());
+//        intent.putExtra("number", check.getNumber());
+//        intent.putExtra("amount", check.getAmount());
+//        intent.putExtra("expiration", check.getExpiration());
+//        intent.putExtra("origin", check.getOrigin());
+//        intent.putExtra("photo", check.getPhoto());
+//        startActivity(intent);
 //    }
 
-    public void clearListSelected() {
-        checks_select.clear();
-        adapter.notifyDataSetChanged();
-        counter = 0;
-        is_action_mode = false;
-    }
+
+//    public void clearListSelected() {
+//        checks_select.clear();
+//        adapter.notifyDataSetChanged();
+//        counter = 0;
+//        is_action_mode = false;
+//    }
 }

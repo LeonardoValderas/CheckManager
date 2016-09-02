@@ -15,8 +15,8 @@ public class DeliveryOtherFragmentInteractorImpl implements DeliveryOtherFragmen
     }
 
     @Override
-    public void removeCheck(List<Check> checks) {
-        repository.removeCheck(checks);
+    public void updateCheck(int id, String delivery, String deliveryDate, boolean isUpdate) {
+        repository.updateDelivery(id, delivery, deliveryDate, isUpdate);
     }
 
     @Override

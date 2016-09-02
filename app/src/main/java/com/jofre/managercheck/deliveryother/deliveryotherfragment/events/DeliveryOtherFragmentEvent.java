@@ -12,15 +12,25 @@ public class DeliveryOtherFragmentEvent {
     private Check check;
     private List<Check> checksList;
     private String error;
+    private String empty;
     private String sucess;
-    public static final int deleteType = 0;
-    public static final int selectType = 1;
-    public static final int updateType = 2;
 
-    public static final String sucessDelete = "Cheque eliminado.";
-    public static final String errorDelete = "Error al intentar eliminar el cheque.";
+    public String getEmpty() {
+        return empty;
+    }
 
+    public void setEmpty(String empty) {
+        this.empty = empty;
+    }
 
+    public static final int selectType = 0;
+    public static final int updateType = 1;
+    public static final int backType = 2;
+
+    public static final String sucessUpdate = "Cheque entregado correctamente.";
+    public static final String sucessBack = "Cheque actualizado correctamente.";
+    public static final String errorMsg = "Error al realizar la gestión.";
+    public static final String errorEmpty = "Ingrese el destino del cheque.";
     public List<Check> getChecksList() {
         return checksList;
     }

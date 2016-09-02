@@ -3,7 +3,7 @@ package com.jofre.managercheck.navigationmain;
 import android.content.Context;
 
 import com.jofre.managercheck.db.CheckController;
-import com.jofre.managercheck.entities.CheckInformationAdd;
+import com.jofre.managercheck.entities.CheckMaturities;
 import com.jofre.managercheck.lib.base.EventBus;
 import com.jofre.managercheck.navigationmain.events.NavigationMainEvent;
 
@@ -13,8 +13,8 @@ import com.jofre.managercheck.navigationmain.events.NavigationMainEvent;
 public class NavigationMainRepositoryImpl implements NavigationMainRepository {
     EventBus eventBus;
     CheckController checkController;
-    CheckInformationAdd checkstAdd = new CheckInformationAdd();
-    CheckInformationAdd checkstAddAux = new CheckInformationAdd();
+    CheckMaturities checkstAdd = new CheckMaturities();
+    CheckMaturities checkstAddAux = new CheckMaturities();
     Context context;
 
     public NavigationMainRepositoryImpl(Context context, EventBus eventBus) {
@@ -26,17 +26,17 @@ public class NavigationMainRepositoryImpl implements NavigationMainRepository {
     @Override
     public void getInformation() {
         instanceController(context);
-        checkstAddAux = checkController.QuantityAmountTotalCheckAdd();
-        if (checkstAddAux != null){
-            checkstAdd.setAmountTotal(checkstAddAux.getAmountTotal());
-            checkstAdd.setAmountQuantityTotal(checkstAddAux.getAmountQuantityTotal());
-            checkstAddAux = checkController.QuantityAmountWeekCheckAdd("","");
-        }
+//        checkstAddAux = checkController.QuantityAmountTotalCheckAdd();
+//        if (checkstAddAux != null){
+//            checkstAdd.setAmountTotal(checkstAddAux.getAmountTotal());
+//            checkstAdd.setAmountQuantityTotal(checkstAddAux.getAmountQuantityTotal());
+//            checkstAddAux = checkController.QuantityAmountWeekCheckAdd("","");
+//        }
 
             post(NavigationMainEvent.ADD_COMPLETE, checkstAddAux, null);
     }
 
-    private void post(int type, CheckInformationAdd checkAdd, String error) {
+    private void post(int type, CheckMaturities checkAdd, String error) {
         NavigationMainEvent event = new NavigationMainEvent();
         event.setError(error);
         event.setCheckInformationAdd(checkAdd);

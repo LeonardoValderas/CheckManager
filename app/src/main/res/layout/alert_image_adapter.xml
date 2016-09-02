@@ -24,8 +24,5 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="5dp"
             android:text="Cerrar" />
-
-
     </RelativeLayout>
-
 </RelativeLayout>

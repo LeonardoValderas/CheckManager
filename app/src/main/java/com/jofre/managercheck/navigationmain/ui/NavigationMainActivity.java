@@ -14,11 +14,12 @@ import android.widget.TextView;
 
 import com.jofre.managercheck.ManagerCheckApp;
 import com.jofre.managercheck.R;
-import com.jofre.managercheck.deliveryother.deliveryothermainactivity.ui.DeliverOtherMainActivity;
+import com.jofre.managercheck.deliveryother.deliveryothermainactivity.ui.DeliveryOtherMainActivity;
 import com.jofre.managercheck.deliveryown.deliveryownmainactivity.ui.DeliverOwnMainActivity;
-import com.jofre.managercheck.entities.CheckInformationAdd;
+import com.jofre.managercheck.entities.CheckMaturities;
+import com.jofre.managercheck.maturities.ui.MaturitiesActivity;
 import com.jofre.managercheck.navigationmain.NavigationMainPresenter;
-import com.jofre.managercheck.receiveradd.receiveraddmain.ui.ReceiverMainActivity;
+import com.jofre.managercheck.receiver.receiveractivity.ui.ReceiverActivity;
 
 import javax.inject.Inject;
 
@@ -39,6 +40,8 @@ public class NavigationMainActivity extends AppCompatActivity
     Button buttonDeliveryOwnCheck;
     @Bind(R.id.buttonDeliveryOtherCheck)
     Button buttonDeliveryOtherCheck;
+    @Bind(R.id.buttonMaturities)
+    Button buttonMaturities;
     @Bind(R.id.drawer_layout)
     DrawerLayout drawer;
     @Bind(R.id.nav_view)
@@ -140,6 +143,7 @@ public class NavigationMainActivity extends AppCompatActivity
         } else if (id == R.id.nav_sender_other) {
             goToDeliveryMainOther();
         } else if (id == R.id.nav_maturities) {
+            goToMaturities();
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -151,7 +155,7 @@ public class NavigationMainActivity extends AppCompatActivity
     }
 
     public void goToReceiverMain() {
-        startActivity(new Intent(this, ReceiverMainActivity.class));
+        startActivity(new Intent(this, ReceiverActivity.class));
     }
 
     @OnClick(R.id.buttonDeliveryOwnCheck)
@@ -169,8 +173,19 @@ public class NavigationMainActivity extends AppCompatActivity
     }
 
     public void goToDeliveryMainOther() {
-        startActivity(new Intent(this, DeliverOtherMainActivity.class));
+        startActivity(new Intent(this, DeliveryOtherMainActivity.class));
     }
+
+    @OnClick(R.id.buttonMaturities)
+    public void onClickButtonMaturities() {
+        goToMaturities();
+    }
+
+    private void goToMaturities() {
+        startActivity(new Intent(this, MaturitiesActivity.class));
+    }
+
+
 
     @Override
     public void getError(String error) {
@@ -179,9 +194,9 @@ public class NavigationMainActivity extends AppCompatActivity
     }
 
     @Override
-    public void setAddCheck(CheckInformationAdd checkInformationAdd) {
-        quantityAddCheckText.setText(checkInformationAdd.getAmountTotal());
-        totalAddCheckText.setText(checkInformationAdd.getAmountQuantityTotal());
+    public void setAddCheck(CheckMaturities checkInformationAdd) {
+      //  quantityAddCheckText.setText(checkInformationAdd.getAmountTotal());
+      //  totalAddCheckText.setText(checkInformationAdd.getAmountQuantityTotal());
     }
 
 //    @Override

@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.EditText;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -70,7 +74,7 @@ public class AuxiliaryGeneral {
                 String valid_photo = UtilityImage.Paste_Target_Location
                         .toString();
 
-               // bRect = Bitmap.createScaledBitmap(bRect, 160, 160, true);
+                // bRect = Bitmap.createScaledBitmap(bRect, 160, 160, true);
 
                 cursor.close();
             } else {
@@ -127,15 +131,15 @@ public class AuxiliaryGeneral {
     }
 
     public String validateLengthMountOrDay(String monthOrDay) {
-      if(!monthOrDay.isEmpty() && monthOrDay != null) {
-          int length = 0;
-          for (int i = 0; i < monthOrDay.length(); i++) {
-              length++;
-          }
+        if (!monthOrDay.isEmpty() && monthOrDay != null) {
+            int length = 0;
+            for (int i = 0; i < monthOrDay.length(); i++) {
+                length++;
+            }
 
-          if (length == 1)
-              monthOrDay = "0" + monthOrDay;
-      }
+            if (length == 1)
+                monthOrDay = "0" + monthOrDay;
+        }
         return monthOrDay;
     }
 
@@ -152,6 +156,7 @@ public class AuxiliaryGeneral {
             return false;
         }
     }
+
     public int getPositionSpinnerYear(String year) {
 
         int index = 0;
@@ -163,5 +168,33 @@ public class AuxiliaryGeneral {
         return index;
     }
 
+    public String dateNowShot() {
+        String formattedDate = null;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        return formattedDate = df.format(c.getTime());
+    }
 
+    public void initOnClickEditText(View view) {
+        final EditText daysExpiration = (EditText)view;
+        daysExpiration.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                daysExpiration.setHint("");
+                return false;
+            }
+
+        });
+
+        daysExpiration.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus  && daysExpiration != null){
+                    daysExpiration.setHint("01");
+                }
+            }
+        });
+    }
 }

@@ -59,8 +59,8 @@ public class NavigationMainModule {
 
 //    @Provides
 //    @Singleton
-//    ReceiverAddListAdapter providesReceiverAddListAdapter(List<Check> checkList, ImageLoader imageLoader, OnItemClickListener onItemClickListener, Context context, Fragment fragment) {
-//        return new ReceiverAddListAdapter(checkList, imageLoader, onItemClickListener, context, fragment);
+//    ReceiverListAdapter providesReceiverAddListAdapter(List<Check> checkList, ImageLoader imageLoader, OnItemClickListener onItemClickListener, Context context, Fragment fragment) {
+//        return new ReceiverListAdapter(checkList, imageLoader, onItemClickListener, context, fragment);
 //    }
 //
 //    @Provides

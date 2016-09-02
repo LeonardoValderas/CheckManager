@@ -1,6 +1,5 @@
 package com.jofre.managercheck.deliveryother.deliveryotherfragment.ui;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -11,16 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jofre.managercheck.ManagerCheckApp;
 import com.jofre.managercheck.R;
+import com.jofre.managercheck.auxiliary.AuxiliaryGeneral;
 import com.jofre.managercheck.deliveryother.deliveryotherfragment.DeliveryOtherFragmentPresenter;
 import com.jofre.managercheck.deliveryother.deliveryotherfragment.ui.adapters.DeliveryOtherFragmentAdapter;
 import com.jofre.managercheck.deliveryother.deliveryotherfragment.ui.adapters.OnItemClickListener;
 import com.jofre.managercheck.deliveryother.deliveryotherfragment.ui.alerts.DeliveryOtherFragmentImageAdapter;
-import com.jofre.managercheck.deliveryown.deliveryownmainactivity.Communicator;
-import com.jofre.managercheck.deliveryown.deliveryownmainactivity.ui.DeliverOwnMainActivity;
+import com.jofre.managercheck.deliveryother.deliveryotherfragment.ui.alerts.DeliveryOtherFragmentItemAdapter;
+import com.jofre.managercheck.deliveryother.deliveryotherfragment.ui.alerts.DeliveryOtherFragmentItemBackAdapter;
+import com.jofre.managercheck.deliveryother.deliveryothermainactivity.Communicator;
+import com.jofre.managercheck.deliveryother.deliveryothermainactivity.ui.DeliveryOtherMainActivity;
 import com.jofre.managercheck.entities.Check;
 import com.jofre.managercheck.lib.base.ImageLoader;
 
@@ -45,11 +48,11 @@ public class DeliveryOtherFragment extends Fragment implements DeliveryOtherFrag
     @Inject
     DeliveryOtherFragmentPresenter presenter;
 
-    public boolean is_action_mode = false;
     private Communicator communicator;
-    private List<Check> checks_select = new ArrayList<>();
     private List<Check> checks = new ArrayList<>();
-    private int counter = 0;
+    private DeliveryOtherFragmentItemAdapter delivery = null;
+    private DeliveryOtherFragmentItemBackAdapter deliveryBack = null;
+    private AuxiliaryGeneral auxiliaryGeneral = null;
 
     public DeliveryOtherFragment() {
     }
@@ -69,19 +72,13 @@ public class DeliveryOtherFragment extends Fragment implements DeliveryOtherFrag
         super.onCreate(savedInstanceState);
         setupInjection();
         presenter.onCreate();
+        auxiliaryGeneral = new AuxiliaryGeneral(getActivity());
         communicator = (Communicator) getActivity();
         getChecks();
     }
 
-    public void deleteClick() {
-        presenter.removeCheck(checks_select);
-        DeliveryOtherFragmentAdapter checkAdapter = (DeliveryOtherFragmentAdapter) adapter;
-        checkAdapter.updateAdapter(checks_select);
-        communicator.clearActionMode();
-    }
-
     private void setupRecyclerView() {
-        textTitleList.setText(getString(R.string.delivery_own_list));
+        textTitleList.setText(getString(R.string.delivery_other));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
@@ -92,48 +89,60 @@ public class DeliveryOtherFragment extends Fragment implements DeliveryOtherFrag
         app.getDeliveryOtherFragmentComponent(this, this, this, getActivity()).inject(this);
     }
 
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        ButterKnife.unbind(this);
-//    }
-
-    @Override
-    public void emptyList(String empty) {
-        Snackbar.make(frameList, empty, Snackbar.LENGTH_SHORT).show();
-    }
-
     @Override
     public void errorShowList(String error) {
         Snackbar.make(frameList, error, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
-    public void errorDelete(String error) {
+    public void errorUpdate(String error) {
         Snackbar.make(frameList, error, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
-    public void successDelete(String success) {
-        Snackbar.make(frameList, success, Snackbar.LENGTH_SHORT).show();
+    public void closeDialogSuccess(String msg, List<Check> checks) {
+        updateRecycler();
+        delivery.alertDialog.dismiss();
+        Snackbar.make(frameList, msg, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
-    public void removeCheck(Check check) {
-        adapter.removeCheck(check);
+    public void closeDialogError(String msg) {
+        delivery.alertDialog.dismiss();
+        Snackbar.make(frameList, msg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dialogEmpty(String msg) {
+        delivery.textEmpty.setVisibility(View.VISIBLE);
+        delivery.textEmpty.setText(msg);
+    }
+
+    @Override
+    public void closeDialogAccept(String msg, List<Check> checks) {
+
+        deliveryBack.alertDialog.dismiss();
+        updateRecycler();
+        Snackbar.make(frameList, msg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void closeDialogBackError(String msg) {
+        deliveryBack.alertDialog.dismiss();
+        Snackbar.make(frameList, msg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void closeDialogCancel() {
+        deliveryBack.alertDialog.dismiss();
     }
 
     @Override
     public void setChecks(List<Check> checks) {
-        if (checks != null && checks.size() > 0) {
+        if (checks != null) {
             this.checks = checks;
             adapter.setChecks(checks);
         }
-    }
-
-    @Override
-    public void onDeleteClick(List<Check> checks) {
-        presenter.removeCheck(checks);
     }
 
     @Override
@@ -142,30 +151,33 @@ public class DeliveryOtherFragment extends Fragment implements DeliveryOtherFrag
     }
 
     @Override
-    public void onEditClick(Check check) {
-        intentEditCheck(check);
+    public void onClickLinearLayout(View v, final Check check) {
+
+        delivery = new DeliveryOtherFragmentItemAdapter(getContext(), check);
+        delivery.buttonSaveDestiny.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.updateCheck(check.getId_check(), delivery.textReceiverDestiny.getText().toString(), auxiliaryGeneral.dateNowShot(), true);
+            }
+        });
     }
 
     @Override
-    public void onClickLinearLayout(View v, int position, boolean isSelected) {
-        if (!isSelected) {
-            checks_select.add(checks.get(position));
-            counter = counter + 1;
-            communicator.updateCounter(counter);
-        } else {
-            checks_select.remove(checks.get(position));
-            counter = counter - 1;
-            communicator.updateCounter(counter);
-        }
-    }
+    public void onLongClickLinearLayout(View v, final Check check) {
+        deliveryBack = new DeliveryOtherFragmentItemBackAdapter(getContext(), check);
+        deliveryBack.buttonAcceptDestiny.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.updateCheck(check.getId_check(), "", "", false);
+            }
+        });
 
-    @Override
-    public void onLongClickLinearLayout(View v, int position, boolean isSelected) {
-        is_action_mode = true;
-        counter = 1;
-        communicator.actionMode();
-        communicator.updateCounter(counter);
-        checks_select.add(checks.get(position));
+        deliveryBack.buttonCancelDestiny.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.closeDialogCancel();
+            }
+        });
     }
 
     @Override
@@ -178,29 +190,9 @@ public class DeliveryOtherFragment extends Fragment implements DeliveryOtherFrag
         presenter.getChecks();
     }
 
-    public void intentEditCheck(Check check) {
-        Intent intent = new Intent(getActivity(), DeliverOwnMainActivity.class);
-        intent.putExtra("update", true);
-        intent.putExtra("id", check.getId_check());
-        intent.putExtra("number", check.getNumber());
-        intent.putExtra("amount", check.getAmount());
-        intent.putExtra("expiration", check.getExpiration());
-        intent.putExtra("origin", check.getOrigin());
-        intent.putExtra("photo", check.getPhoto());
-        startActivity(intent);
-    }
-
-//    @Override
-//    public boolean onLongClick(View v) {
-//        is_action_mode = true;
-//        communicator.actionMode();
-//        return true;
-//    }
-
-    public void clearListSelected() {
-        checks_select.clear();
-        adapter.notifyDataSetChanged();
-        counter = 0;
-        is_action_mode = false;
+    public void updateRecycler() {
+        presenter.getChecks();
+        setupRecyclerView();
+        communicator.refreshOtherList();
     }
 }

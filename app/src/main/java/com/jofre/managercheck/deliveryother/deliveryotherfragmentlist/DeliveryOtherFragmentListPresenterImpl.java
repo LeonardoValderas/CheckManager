@@ -40,10 +40,10 @@ public class DeliveryOtherFragmentListPresenterImpl implements DeliveryOtherFrag
         eventBus.unregister(this);
     }
 
-    @Override
-    public void removeCheck(List<Check> checks) {
-        interactor.removeCheck(checks);
-    }
+//    @Override
+//    public void removeCheck(List<Check> checks) {
+//        interactor.removeCheck(checks);
+//    }
 
     @Override
     public void getChecks() {
@@ -59,27 +59,25 @@ public class DeliveryOtherFragmentListPresenterImpl implements DeliveryOtherFrag
                 case DeliveryOtherFragmentListEvent.selectType:
                     if (event.getChecksList() == null) {
                         view.errorShowList(ERROR_LIST);
-                    } else if (event.getChecksList().isEmpty()) {
-                        view.emptyList(EMPTY_LIST);
                     } else {
                         view.setChecks(event.getChecksList());
                     }
                     break;
-                case DeliveryOtherFragmentListEvent.deleteType:
-                    String error = event.getError();
-                    if (error == null) {
-                        view.removeCheck(event.getCheck());
-                        view.successDelete(event.getSucess());
-                    } else {
-                        view.errorDelete(error);
-                    }
+//                case DeliveryOtherFragmentListEvent.deleteType:
+//                    String error = event.getError();
+//                    if (error == null) {
+//                        view.removeCheck(event.getCheck());
+//                        view.successDelete(event.getSucess());
+//                    } else {
+//                        view.errorDelete(error);
+//                    }
             }
         }
     }
 
     @Override
     public void showAlert(Context context, ImageLoader imageLoader, byte[] bytes) {
-     //   new DeliveryOtherFragmentImageAdapter(context,imageLoader,bytes).alertDialog.show();
+        //   new DeliveryOtherFragmentImageAdapter(context,imageLoader,bytes).alertDialog.show();
     }
 }
 

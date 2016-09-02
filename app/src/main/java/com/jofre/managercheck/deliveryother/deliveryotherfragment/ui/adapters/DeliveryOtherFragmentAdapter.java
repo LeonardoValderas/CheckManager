@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jofre.managercheck.R;
+import com.jofre.managercheck.auxiliary.AuxiliaryGeneral;
 import com.jofre.managercheck.deliveryother.deliveryotherfragment.ui.DeliveryOtherFragment;
 import com.jofre.managercheck.entities.Check;
 import com.jofre.managercheck.lib.base.ImageLoader;
@@ -26,12 +27,12 @@ import butterknife.ButterKnife;
  */
 public class DeliveryOtherFragmentAdapter extends RecyclerView.Adapter<DeliveryOtherFragmentAdapter.ViewHolder> {
 
-
     private List<Check> checkList;
     private ImageLoader imageLoader;
     private OnItemClickListener onItemClickListener;
     private Context context;
     private DeliveryOtherFragment fragment;
+    private AuxiliaryGeneral auxiliaryGeneral;
 
     public DeliveryOtherFragmentAdapter(List<Check> checkList, ImageLoader imageLoader, OnItemClickListener onItemClickListener, Context context, Fragment fragment) {
         this.checkList = checkList;
@@ -39,6 +40,7 @@ public class DeliveryOtherFragmentAdapter extends RecyclerView.Adapter<DeliveryO
         this.onItemClickListener = onItemClickListener;
         this.context = context;
         this.fragment = (DeliveryOtherFragment) fragment;
+        auxiliaryGeneral = new AuxiliaryGeneral(context);
     }
 
     @Override
@@ -54,24 +56,33 @@ public class DeliveryOtherFragmentAdapter extends RecyclerView.Adapter<DeliveryO
         holder.setOnItemClickListener(currentCheck, onItemClickListener, context, imageLoader);
         holder.textReceiverNumber.setText(currentCheck.getNumber());
         holder.textReceiverAmount.setText("$ " + currentCheck.getAmount());
-
         holder.linearDataReceiver.setTag(0);
-        if(position == 0)
-            holder.linearDataReceiver.setBackgroundResource(R.drawable.border_rect_linear_first);
-        else
-            holder.linearDataReceiver.setBackgroundResource(R.drawable.border_rect_linear);
         holder.textReceiverExpirate.setText(currentCheck.getExpiration());
-        holder.textTitleOrigin.setText(context.getText(R.string.delivery_own));
+        holder.textTitleOrigin.setText(context.getText(R.string.delivery_other_add));
         holder.textReceiverOrigin.setText(currentCheck.getOrigin());
+        if (currentCheck.getDestiny() != null) {
+            if (!currentCheck.getDestiny().isEmpty()) {
+
+                holder.linearDestiny.setVisibility(View.VISIBLE);
+                holder.textReceiverDestiny.setText(currentCheck.getDestiny());
+                holder.linearDataReceiver.setTag(1);
+                holder.linearDataReceiver.setBackgroundResource(R.drawable.border_rect_linear_delivery_solid);
+                holder.textReceiverDestinyDate.setText(currentCheck.getDestinyDate());
+            }
+        }
+        holder.imgEdit.setVisibility(View.INVISIBLE);
     }
+
     @Override
     public int getItemCount() {
         return checkList.size();
     }
+
     public void removeCheck(Check check) {
         checkList.remove(check);
         notifyDataSetChanged();
     }
+
     public void setChecks(List<Check> checks) {
         this.checkList = checks;
         notifyDataSetChanged();
@@ -94,13 +105,18 @@ public class DeliveryOtherFragmentAdapter extends RecyclerView.Adapter<DeliveryO
         LinearLayout linearDataReceiver;
         @Bind(R.id.textTitleOrigin)
         TextView textTitleOrigin;
+        @Bind(R.id.linearDestiny)
+        LinearLayout linearDestiny;
+        @Bind(R.id.textReceiverDestiny)
+        TextView textReceiverDestiny;
+        @Bind(R.id.textReceiverDestinyDate)
+        TextView textReceiverDestinyDate;
         DeliveryOtherFragment fragment;
 
         public ViewHolder(View view, DeliveryOtherFragment fragment) {
             super(view);
             this.fragment = fragment;
             ButterKnife.bind(this, view);
-           // linearDataReceiver.setOnLongClickListener(fragment);
         }
 
         public void setOnItemClickListener(final Check check,
@@ -112,44 +128,23 @@ public class DeliveryOtherFragmentAdapter extends RecyclerView.Adapter<DeliveryO
                     listener.onShowImageClick(imageLoader, check);
                 }
             });
-            imgEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onEditClick(check);
-                }
-            });
             linearDataReceiver.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(fragment.is_action_mode) {
-                        if (v.getTag() == 0) {
-                            listener.onClickLinearLayout(v, getAdapterPosition(), false);
-                            v.setBackgroundResource(R.drawable.border_rect_linear_solid);
-                            v.setTag(1);
-                        } else {
-                            listener.onClickLinearLayout(v, getAdapterPosition(), true);
-                            v.setBackgroundResource(R.drawable.border_rect_linear);
-                            v.setTag(0);
-                        }
+                    if (v.getTag() == 0) {
+                        listener.onClickLinearLayout(v, check);
                     }
                 }
             });
-
             linearDataReceiver.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    listener.onLongClickLinearLayout(v, getAdapterPosition(), false);
-                    v.setBackgroundResource(R.drawable.border_rect_linear_solid);
-                    v.setTag(1);
+                    if (v.getTag() == 1) {
+                        listener.onLongClickLinearLayout(v, check);
+                    }
                     return true;
                 }
-           });
+            });
         }
-    }
-    public void updateAdapter (List<Check> list){
-        for(Check check: list){
-            checkList.remove(check);
-        }
-        notifyDataSetChanged();
     }
 }

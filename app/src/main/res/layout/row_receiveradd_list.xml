@@ -110,7 +110,6 @@
                         android:id="@+id/textTitleOrigin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/textReceiverOriginTitle"
                         android:layout_margin="@dimen/margim_receiver"
                         android:text="Recibido de : "
                         android:textStyle="bold" />
@@ -119,11 +118,39 @@
                         android:id="@+id/textReceiverOrigin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignStart="@+id/textReceiverOrigin"
-                        android:layout_below="@+id/textReceiverExpirate"
                         android:layout_margin="@dimen/margim_receiver"
                         android:text="Juan Perez" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearDestiny"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/textTitleDestiny"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margim_receiver"
+                        android:text="Entregado a : "
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textReceiverDestiny"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margim_receiver"
+                        android:text="Juan Pardo" />
+
+                    <TextView
+                        android:id="@+id/textReceiverDestinyDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margim_receiver"
+                        android:text="Juan Pardo" />
                 </LinearLayout>
 
             </LinearLayout>

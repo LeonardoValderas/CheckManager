@@ -54,15 +54,21 @@ public class DeliveryOtherFragmentListAdapter extends RecyclerView.Adapter<Deliv
         holder.setOnItemClickListener(currentCheck, onItemClickListener, context, imageLoader);
         holder.textReceiverNumber.setText(currentCheck.getNumber());
         holder.textReceiverAmount.setText("$ " + currentCheck.getAmount());
-
         holder.linearDataReceiver.setTag(0);
-        if(position == 0)
-            holder.linearDataReceiver.setBackgroundResource(R.drawable.border_rect_linear_first);
-        else
-            holder.linearDataReceiver.setBackgroundResource(R.drawable.border_rect_linear);
         holder.textReceiverExpirate.setText(currentCheck.getExpiration());
-        holder.textTitleOrigin.setText(context.getText(R.string.delivery_own));
+        holder.textTitleOrigin.setText(context.getText(R.string.delivery_other_add));
         holder.textReceiverOrigin.setText(currentCheck.getOrigin());
+        if (currentCheck.getDestiny() != null) {
+            if (!currentCheck.getDestiny().isEmpty()) {
+
+                holder.linearDestiny.setVisibility(View.VISIBLE);
+                holder.textReceiverDestiny.setText(currentCheck.getDestiny());
+                holder.linearDataReceiver.setTag(1);
+                holder.linearDataReceiver.setBackgroundResource(R.drawable.border_rect_linear_delivery_solid);
+                holder.textReceiverDestinyDate.setText(currentCheck.getDestinyDate());
+            }
+        }
+        holder.imgEdit.setVisibility(View.INVISIBLE);
     }
     @Override
     public int getItemCount() {
@@ -94,6 +100,12 @@ public class DeliveryOtherFragmentListAdapter extends RecyclerView.Adapter<Deliv
         LinearLayout linearDataReceiver;
         @Bind(R.id.textTitleOrigin)
         TextView textTitleOrigin;
+        @Bind(R.id.linearDestiny)
+        LinearLayout linearDestiny;
+        @Bind(R.id.textReceiverDestiny)
+        TextView textReceiverDestiny;
+        @Bind(R.id.textReceiverDestinyDate)
+        TextView textReceiverDestinyDate;
         DeliveryOtherFragmentListFragment fragment;
 
         public ViewHolder(View view, DeliveryOtherFragmentListFragment fragment) {
@@ -112,44 +124,44 @@ public class DeliveryOtherFragmentListAdapter extends RecyclerView.Adapter<Deliv
                     listener.onShowImageClick(imageLoader, check);
                 }
             });
-            imgEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onEditClick(check);
-                }
-            });
-            linearDataReceiver.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(fragment.is_action_mode) {
-                        if (v.getTag() == 0) {
-                            listener.onClickLinearLayout(v, getAdapterPosition(), false);
-                            v.setBackgroundResource(R.drawable.border_rect_linear_solid);
-                            v.setTag(1);
-                        } else {
-                            listener.onClickLinearLayout(v, getAdapterPosition(), true);
-                            v.setBackgroundResource(R.drawable.border_rect_linear);
-                            v.setTag(0);
-                        }
-                    }
-                }
-            });
-
-            linearDataReceiver.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    listener.onLongClickLinearLayout(v, getAdapterPosition(), false);
-                    v.setBackgroundResource(R.drawable.border_rect_linear_solid);
-                    v.setTag(1);
-                    return true;
-                }
-           });
+//            imgEdit.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    listener.onEditClick(check);
+//                }
+//            });
+//            linearDataReceiver.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if(fragment.is_action_mode) {
+//                        if (v.getTag() == 0) {
+//                            listener.onClickLinearLayout(v, getAdapterPosition(), false);
+//                            v.setBackgroundResource(R.drawable.border_rect_linear_solid);
+//                            v.setTag(1);
+//                        } else {
+//                            listener.onClickLinearLayout(v, getAdapterPosition(), true);
+//                            v.setBackgroundResource(R.drawable.border_rect_linear);
+//                            v.setTag(0);
+//                        }
+//                    }
+//                }
+//            });
+//
+//            linearDataReceiver.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View v) {
+//                    listener.onLongClickLinearLayout(v, getAdapterPosition(), false);
+//                    v.setBackgroundResource(R.drawable.border_rect_linear_solid);
+//                    v.setTag(1);
+//                    return true;
+//                }
+//           });
         }
     }
-    public void updateAdapter (List<Check> list){
-        for(Check check: list){
-            checkList.remove(check);
-        }
-        notifyDataSetChanged();
-    }
+//    public void updateAdapter (List<Check> list){
+//        for(Check check: list){
+//            checkList.remove(check);
+//        }
+//        notifyDataSetChanged();
+//    }
 }

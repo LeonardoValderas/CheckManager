@@ -27,6 +27,7 @@
             android:gravity="center"
             android:text="@string/receiver_item_nav"
             android:textColor="@android:color/white" />
+
         <Button
             android:id="@+id/buttonDeliveryOwnCheck"
             android:layout_width="match_parent"
@@ -36,6 +37,7 @@
             android:gravity="center"
             android:text="@string/delivery_own_item_nav"
             android:textColor="@android:color/white" />
+
         <Button
             android:id="@+id/buttonDeliveryOtherCheck"
             android:layout_width="match_parent"
@@ -45,25 +47,36 @@
             android:gravity="center"
             android:text="@string/delivery_other_nav"
             android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/buttonMaturities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_button_main"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/maturities_item_nav"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/linearButtons">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearButtons"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_rect_solid">
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp"
-                android:background="@drawable/border_rect_linear"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -73,12 +86,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Cantidad de cheques recibos:" />
+                        android:textColor="#000000"
+                        android:text="Cant. de cheques recibos:" />
 
                     <TextView
                         android:id="@+id/quantity_addCheck_text_"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:layout_marginLeft="5dp"
                         android:text="--" />
                 </LinearLayout>
@@ -91,12 +106,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:text="Total cheques recibos:" />
 
                     <TextView
                         android:id="@+id/total_addCheck_text_"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:layout_marginLeft="5dp"
                         android:text="$ --" />
                 </LinearLayout>
@@ -109,15 +126,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:text="Vencen ésta semana: " />
 
                     <TextView
                         android:id="@+id/quantity_addCheck_expiration_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:layout_marginLeft="5dp"
                         android:text="--" />
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -127,12 +147,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:text="Monto que vence ésta semena :" />
 
                     <TextView
                         android:id="@+id/total_addCheck_expiration_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:layout_marginLeft="5dp"
                         android:text="$ --" />
                 </LinearLayout>
@@ -141,11 +163,18 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="1dp"
+                android:background="@android:color/white"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
-                android:padding="5dp"
-                android:background="@drawable/border_rect_linear"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -155,12 +184,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Cantidad de cheques propios entregados:" />
+                        android:textColor="#000000"
+                        android:text="Cant. de cheques propios entregados:" />
 
                     <TextView
                         android:id="@+id/quantity_ownCheck_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:layout_marginLeft="5dp"
                         android:text="--" />
                 </LinearLayout>
@@ -173,12 +204,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:text="Total cheques propios entregados:" />
 
                     <TextView
                         android:id="@+id/total_ownCheck_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:layout_marginLeft="5dp"
                         android:text="$ --" />
                 </LinearLayout>
@@ -191,12 +224,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:text="Vencen ésta semana: " />
 
                     <TextView
                         android:id="@+id/quantity_ownCheck_expiration_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:layout_marginLeft="5dp"
                         android:text="--" />
                 </LinearLayout>
@@ -209,18 +244,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Monto que vence ésta semena: " />
+                        android:textColor="#000000"
+                        android:text="Monto que vence ésta semena: "
+                        android:layout_marginBottom="5dp"/>
 
                     <TextView
                         android:id="@+id/total_ownCheck_expiration_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textColor="#000000"
                         android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
                         android:text="$ --" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-
     </ScrollView>
 
 </RelativeLayout>

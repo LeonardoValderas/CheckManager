@@ -14,7 +14,7 @@ import java.util.List;
 public interface DeliveryOtherFragmentListPresenter {
     void onCreate();
     void onDestroy();
-    void removeCheck(List<Check> checks);
+   // void removeCheck(List<Check> checks);
     void getChecks();
     void onEventMainThread(DeliveryOtherFragmentListEvent event);
     void showAlert(Context context, ImageLoader imageLoader, byte[] bytes);

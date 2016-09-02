@@ -34,10 +34,14 @@
 
     <!--list row-->
     <string name="delivery_own">Entregado a: </string>
+    <string name="delivery_other_add">Recibido de: </string>
 
     <!--title list-->
     <string name="delivery_own_list">Cheques Propios</string>
+    <string name="delivery_other">Cheques Terceros</string>
+    <string name="delivery_other_delivery">Cheques Terceros Entregados</string>
     <string name="receiver_list">Cheques Recibidos</string>
+    <string name="who_delivery">A quien se lo vas a entregar?</string>
 
     <string-array name="months">
         <item>Enero</item>

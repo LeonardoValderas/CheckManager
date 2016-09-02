@@ -14,10 +14,10 @@ public class DeliveryOtherFragmentListInteractorImpl implements DeliveryOtherFra
         this.repository = repository;
     }
 
-    @Override
-    public void removeCheck(List<Check> checks) {
-        repository.removeCheck(checks);
-    }
+//    @Override
+//    public void removeCheck(List<Check> checks) {
+//        repository.removeCheck(checks);
+//    }
 
     @Override
     public void getChecks() {

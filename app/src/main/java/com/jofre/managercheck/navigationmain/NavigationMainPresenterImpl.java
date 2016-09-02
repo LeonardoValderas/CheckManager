@@ -1,8 +1,5 @@
 package com.jofre.managercheck.navigationmain;
 
-import android.support.design.widget.NavigationView;
-
-import com.jofre.managercheck.entities.CheckInformationAdd;
 import com.jofre.managercheck.lib.base.EventBus;
 import com.jofre.managercheck.navigationmain.events.NavigationMainEvent;
 import com.jofre.managercheck.navigationmain.ui.NavigationMainActivityView;
@@ -24,7 +21,7 @@ public class NavigationMainPresenterImpl implements NavigationMainPresenter {
     }
 
 //    @Override
-//    public void setAddCheck(CheckInformationAdd checkInformationAdd) {
+//    public void setAddCheck(CheckMaturities checkInformationAdd) {
 //
 //    }
 //

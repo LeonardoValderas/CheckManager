@@ -27,7 +27,7 @@ public class DeliveryOwnFragmentListRepositoryImpl implements DeliveryOwnFragmen
         if (checks != null) {
             try {
                 instanceController(context);
-                checkController.deleteCheckOwn(checks);
+                checkController.deleteCheck(checks);
                 post(DeliveryOwnFragmentListEvent.deleteType, DeliveryOwnFragmentListEvent.sucessDelete);
             } catch (Exception e) {
                 post(DeliveryOwnFragmentListEvent.deleteType, DeliveryOwnFragmentListEvent.errorDelete + " " + e.getMessage(), false);
@@ -40,7 +40,7 @@ public class DeliveryOwnFragmentListRepositoryImpl implements DeliveryOwnFragmen
     @Override
     public void selectAll() {
      instanceController(context);
-     checksList = checkController.selectAllCheckOwn();
+     checksList = checkController.selectAllCheck(true);
 //        FlowCursorList<Check> storedChecks = new FlowCursorList<Check>(false, Check.class);
 //        storedChecks.setCacheModels(true, Math.max(1, storedChecks.getCount()));
        if(checksList != null)

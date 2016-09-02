@@ -8,6 +8,6 @@ import java.util.List;
  * Created by LEO on 8/7/2016.
  */
 public interface DeliveryOtherFragmentRepository {
-    void removeCheck(List<Check> checks);
     void selectAll();
+    void updateDelivery(int id, String delivey, String deliveyDate, boolean isUpdate);
 }

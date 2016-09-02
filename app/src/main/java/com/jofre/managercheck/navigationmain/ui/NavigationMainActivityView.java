@@ -1,6 +1,6 @@
 package com.jofre.managercheck.navigationmain.ui;
 
-import com.jofre.managercheck.entities.CheckInformationAdd;
+import com.jofre.managercheck.entities.CheckMaturities;
 
 /**
  * Created by LEO on 11/8/2016.
@@ -8,7 +8,7 @@ import com.jofre.managercheck.entities.CheckInformationAdd;
 public interface NavigationMainActivityView {
  //   void goToReceiverCheck();
     void getError(String error);
-    void setAddCheck(CheckInformationAdd checkInformationAdd);
+    void setAddCheck(CheckMaturities checkInformationAdd);
    // void getInformation();
 //    void getAmountQuantityAddCheck();
 //    void getAmountQuantityTotalAddCheck();

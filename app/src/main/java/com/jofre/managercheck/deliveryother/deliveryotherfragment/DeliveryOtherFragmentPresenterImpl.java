@@ -41,8 +41,8 @@ public class DeliveryOtherFragmentPresenterImpl implements DeliveryOtherFragment
     }
 
     @Override
-    public void removeCheck(List<Check> checks) {
-        interactor.removeCheck(checks);
+    public void updateCheck(int id, String destiny, String destinyDate, boolean isUpdate) {
+        interactor.updateCheck(id, destiny, destinyDate, isUpdate);
     }
 
     @Override
@@ -51,35 +51,43 @@ public class DeliveryOtherFragmentPresenterImpl implements DeliveryOtherFragment
     }
 
     @Override
-    @Subscribe
-    public void onEventMainThread(DeliveryOtherFragmentEvent event) {
-        if (this.view != null) {
-
-            switch (event.getType()) {
-                case DeliveryOtherFragmentEvent.selectType:
-                    if (event.getChecksList() == null) {
-                        view.errorShowList(ERROR_LIST);
-                    } else if (event.getChecksList().isEmpty()) {
-                        view.emptyList(EMPTY_LIST);
-                    } else {
-                        view.setChecks(event.getChecksList());
-                    }
-                    break;
-                case DeliveryOtherFragmentEvent.deleteType:
-                    String error = event.getError();
-                    if (error == null) {
-                        view.removeCheck(event.getCheck());
-                        view.successDelete(event.getSucess());
-                    } else {
-                        view.errorDelete(error);
-                    }
-            }
-        }
+    public void closeDialogCancel() {
+        view.closeDialogCancel();
     }
 
     @Override
-    public void showAlert(Context context, ImageLoader imageLoader, byte[] bytes) {
-     //   new DeliveryOtherFragmentImageAdapter(context,imageLoader,bytes).alertDialog.show();
+    @Subscribe
+    public void onEventMainThread(DeliveryOtherFragmentEvent event) {
+        if (this.view != null) {
+            switch (event.getType()) {
+                case DeliveryOtherFragmentEvent.selectType:
+                    if (event.getChecksList() == null)
+                        view.errorShowList(ERROR_LIST);
+                    else
+                        view.setChecks(event.getChecksList());
+                    break;
+                case DeliveryOtherFragmentEvent.updateType:
+                    String error = event.getError();
+                    String empty = event.getEmpty();
+                    if (error == null && empty == null)
+                        view.closeDialogSuccess(event.getSucess(),event.getChecksList());
+                    else if (empty != null)
+                        view.dialogEmpty(empty);
+                    else
+                        view.closeDialogError(error);
+                    break;
+                case DeliveryOtherFragmentEvent.backType:
+                    String errorBack = event.getError();
+                    if (errorBack == null)
+                        if (event.getSucess() != null)
+                            view.closeDialogAccept(event.getSucess(),event.getChecksList());
+                        else
+                            view.closeDialogCancel();
+                    else
+                        view.closeDialogBackError(errorBack);
+                    break;
+            }
+        }
     }
 }
 

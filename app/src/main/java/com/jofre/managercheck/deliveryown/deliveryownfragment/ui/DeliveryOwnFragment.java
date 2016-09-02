@@ -106,7 +106,7 @@ public class DeliveryOwnFragment extends Fragment implements DeliveryOwnFragment
         super.onActivityCreated(state);
         fillSpinnerDate();
         isUpdate();
-        initOnClickEditText();
+        initOnClickEditText(daysExpiration);
     }
 
     @Override
@@ -350,6 +350,7 @@ public class DeliveryOwnFragment extends Fragment implements DeliveryOwnFragment
     @Override
     @OnClick(R.id.fab)
     public void saveCheck() {
+        check.setType(1);//0=other 1=own
         check.setNumber(editTextNumber.getText().toString());
         check.setAmount(editTextAmount.getText().toString());
         check.setOrigin(editTextOrigin.getText().toString());
@@ -453,26 +454,8 @@ public class DeliveryOwnFragment extends Fragment implements DeliveryOwnFragment
 //        return index;
 //    }
 
-    public void initOnClickEditText() {
-        daysExpiration.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                daysExpiration.setHint("");
-                return false;
-            }
-
-        });
-
-        daysExpiration.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus && daysExpiration != null){
-                    daysExpiration.setHint("01");
-                }
-            }
-        });
+    public void initOnClickEditText(View v) {
+        auxiliaryGeneral.initOnClickEditText(v);
     }
 
 }

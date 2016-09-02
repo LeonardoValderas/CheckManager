@@ -22,25 +22,25 @@ public class DeliveryOtherFragmentListRepositoryImpl implements DeliveryOtherFra
         this.context = context;
     }
 
-    @Override
-    public void removeCheck(List<Check> checks) {
-        if (checks != null) {
-            try {
-                instanceController(context);
-                checkController.deleteCheckOwn(checks);
-                post(DeliveryOtherFragmentListEvent.deleteType, DeliveryOtherFragmentListEvent.sucessDelete);
-            } catch (Exception e) {
-                post(DeliveryOtherFragmentListEvent.deleteType, DeliveryOtherFragmentListEvent.errorDelete + " " + e.getMessage(), false);
-            }
-        } else {
-            post(DeliveryOtherFragmentListEvent.deleteType, DeliveryOtherFragmentListEvent.errorDelete, false);
-        }
-    }
+//    @Override
+//    public void removeCheck(List<Check> checks) {
+//        if (checks != null) {
+//            try {
+//                instanceController(context);
+//                checkController.deleteCheckOwn(checks);
+//                post(DeliveryOtherFragmentListEvent.deleteType, DeliveryOtherFragmentListEvent.sucessDelete);
+//            } catch (Exception e) {
+//                post(DeliveryOtherFragmentListEvent.deleteType, DeliveryOtherFragmentListEvent.errorDelete + " " + e.getMessage(), false);
+//            }
+//        } else {
+//            post(DeliveryOtherFragmentListEvent.deleteType, DeliveryOtherFragmentListEvent.errorDelete, false);
+//        }
+//    }
 
     @Override
     public void selectAll() {
      instanceController(context);
-     checksList = checkController.selectAllCheckOwn();
+     checksList = checkController.selectAllCheckDelivey();
 //        FlowCursorList<Check> storedChecks = new FlowCursorList<Check>(false, Check.class);
 //        storedChecks.setCacheModels(true, Math.max(1, storedChecks.getCount()));
        if(checksList != null)

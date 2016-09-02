@@ -17,7 +17,6 @@ import com.jofre.managercheck.R;
 import com.jofre.managercheck.deliveryown.deliveryownfragment.ui.DeliveryOwnFragment;
 import com.jofre.managercheck.deliveryown.deliveryownfragmentlist.ui.DeliveryOwnFragmentListFragment;
 import com.jofre.managercheck.deliveryown.deliveryownmainactivity.Communicator;
-import com.jofre.managercheck.deliveryown.deliveryownmainactivity.DeliveryOwnMainPresenter;
 import com.jofre.managercheck.deliveryown.deliveryownmainactivity.ui.adapters.DeliveryOwnSectionsPagerAdapter;
 
 import javax.inject.Inject;
@@ -39,8 +38,6 @@ public class DeliverOwnMainActivity extends AppCompatActivity implements Communi
     ViewPager viewPager;
 
     @Inject
-    DeliveryOwnMainPresenter presenter;
-    @Inject
     DeliveryOwnSectionsPagerAdapter adapter;
     int counter = 0;
     boolean is_action_mode = false;
@@ -56,7 +53,6 @@ public class DeliverOwnMainActivity extends AppCompatActivity implements Communi
     }
 
     private void setupNavigation() {
-        //  PhotoFeedApp app = (PhotoFeedApp) getApplication();
         counterText.setText(getString(R.string.delivery_own_item_nav));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
