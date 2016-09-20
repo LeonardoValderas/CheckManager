@@ -1,47 +1,21 @@
 <resources>
-    <!--app_name-->
-    <string name="app_name">Check Manager</string>
-    <!--navigation options-->
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <!--menu options-->
-    <string name="action_settings">Settings</string>
-    <!--options add and delivery own check-->
-    <string name="receiver_title_foto">FOTO</string>
-    <string name="fecha_de_vencimiento">Fecha de Vencimiento</string>
-    <string name="hint_amount_receiver">Importe del cheque</string>
-    <string name="hint_number_receiver">Número de cheque</string>
-    <string name="hint_origin_receiver">Quien te dio el cheque?</string>
-    <string name="hint_destiny_delivery">A quien le diste el cheque?</string>
-    <string name="hint_expirate_receiver">Ingrese la fecha de vencimiento</string>
-    <!--title tabs receiver-->
-    <string name="receiver_title_list">Consultar</string>
-    <string name="receiver_title_add">Cargar</string>
-    <string name="delivery_title">Entregar</string>
-    <!--snackbar receiver-->
-    <string name="add_init">Guardando cheque...</string>
-    <string name="add_complete">Cheque guardado</string>
+    <string name="app_name">CheQues</string>
+    <string name="string_item_nav">Cheques</string>
+    <string name="action_settings">Opciones</string>
+    <!--tabs-->
+    <string name="string_tab_cargar">CARGAR</string>
+    <string name="string_tab_cheques">CHEQUES</string>
+    <string name="string_tab_reportes">REPORTES</string>
+    <!--ADD-->
     <string name="main.message.picture.source">Selecciona una foto</string>
     <string name="main.error.dispatch.camera">Error al crear archivo</string>
-    <string name="check_delete">Cheque elimando.</string>
-    <string name="title_main">Administrador de Cheques</string>
-
-    <!--title items navigation-->
-    <string name="receiver_item_nav">Recibir Cheque</string>
-    <string name="delivery_own_item_nav">Entregar Cheque Propio</string>
-    <string name="delivery_other_nav">Entregar Cheque Tercero</string>
-    <string name="maturities_item_nav">Vencimientos</string>
-
-    <!--list row-->
-    <string name="delivery_own">Entregado a: </string>
-    <string name="delivery_other_add">Recibido de: </string>
-
-    <!--title list-->
-    <string name="delivery_own_list">Cheques Propios</string>
-    <string name="delivery_other">Cheques Terceros</string>
-    <string name="delivery_other_delivery">Cheques Terceros Entregados</string>
-    <string name="receiver_list">Cheques Recibidos</string>
-    <string name="who_delivery">A quien se lo vas a entregar?</string>
+    <string name="add_complete">Cheque guardado</string>
+    <string name="hint_amount_add">Importe del cheque</string>
+    <string name="hint_number_add">Número de cheque</string>
+    <string name="hint_origin_add">Recibido de:</string>
+    <string name="hint_destiny_add">Entregado a:</string>
+    <string name="hint_expirate_add">Ingrese la fecha de vencimiento</string>
+    <string name="insert_destiny_hint">Ingrese el destino</string>
 
     <string-array name="months">
         <item>Enero</item>
@@ -57,5 +31,11 @@
         <item>Noviembre</item>
         <item>Diciembre</item>
     </string-array>
+
+    <string-array name="type_checks">
+        <item>De Tercero</item>
+        <item>Propio</item>
+    </string-array>
+
 
 </resources>

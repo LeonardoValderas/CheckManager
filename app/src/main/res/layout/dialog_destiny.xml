@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin_row"
+    android:layout_marginRight="@dimen/activity_horizontal_margin_row"
+    android:layout_marginTop="@dimen/activity_horizontal_margin_row_top_buttom">
+
+
+    <LinearLayout
+        android:id="@+id/linearDataReceiver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margim_cargar_list_item"
+        android:background="@drawable/border_rect_linear"
+        android:orientation="vertical"
+        android:padding="@dimen/margim_view">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margim_cargar_list_item"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textReceiverNumberTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margim_cargar_list_item"
+                    android:text="Número: "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textReceiverNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margim_cargar_list_item"
+                    android:text="11111111" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textReceiverAmountTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margim_cargar_list_item"
+                    android:text="Monto: "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textReceiverAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margim_cargar_list_item"
+                    android:text="1500" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margim_cargar_list_item"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textReceiverExpirateTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margim_cargar_list_item"
+                        android:text="Vencimiento: "
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textReceiverExpirate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margim_cargar_list_item"
+                        android:text="27/05/2016" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textTitleOrigin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margim_cargar_list_item"
+                        android:text="Recibido de : "
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textReceiverOrigin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margim_cargar_list_item"
+                        android:text="Juan Perez" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearDestiny"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textTitleDestiny"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margim_cargar_list_item"
+                        android:text="Entregado a : "
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/textReceiverDestiny"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margim_cargar_list_item"
+                        android:hint="@string/insert_destiny_hint"
+                        android:maxLength="20"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="#F44336"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonSaveDestiny"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearDataReceiver"
+        android:layout_centerInParent="true"
+        android:text="Guardar" />
+</RelativeLayout>

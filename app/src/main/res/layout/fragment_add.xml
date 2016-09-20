@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:paddingBottom="5dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".main.activity.ui.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/linearAddOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spinnerTypeChecks"
+                        style="@style/SpinnerStyle"
+                        android:background="@drawable/border_style_spinner" />
+
+                    <ImageView
+                        android:id="@+id/imageAddPhoto"
+                        style="@style/ImagePhotoStyle"
+                        android:background="@drawable/border_rect_linear"
+                        android:src="@android:drawable/ic_menu_camera" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearAddTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/linearAddThree"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/wrapperNumber"
+                            style="@style/EditTextStyle"
+                            android:layout_margin="@dimen/margim_add_fragment"
+                            android:hint="@string/hint_number_add">
+
+                            <EditText
+                                android:id="@+id/editTextNumber"
+                                style="@style/EditTextStyle"
+                                android:inputType="number" >
+                            <requestFocus />
+                            </EditText>
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/wrapperAmount"
+                            style="@style/EditTextStyle"
+                            android:layout_margin="@dimen/margim_add_fragment"
+                            android:hint="@string/hint_amount_add">
+
+                            <EditText
+                                android:id="@+id/editTextAmount"
+                                style="@style/EditTextStyle"
+                                android:inputType="numberDecimal" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Fecha de vencimiento"
+                        android:textSize="17dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/daysExpiration"
+                            style="@style/EditTextDayStyle" />
+
+                        <Spinner
+                            android:id="@+id/monthsExpiration"
+                            style="@style/SpinnerStyleDate"
+                            android:layout_weight="2"
+                            android:background="@drawable/border_style_spinner" />
+
+                        <Spinner
+                            android:id="@+id/yearsExpiration"
+                            style="@style/SpinnerStyleDate"
+                            android:layout_weight="2.3"
+                            android:background="@drawable/border_style_spinner" />
+
+                    </LinearLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/wrapperOrigin"
+                        style="@style/EditTextStyle"
+                        android:layout_margin="@dimen/margim_add_fragment"
+                        android:hint="@string/hint_origin_add">
+
+                        <EditText
+                            android:id="@+id/editTextOrigin"
+                            style="@style/EditTextStyle" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/wrapperDestiny"
+                        style="@style/EditTextStyle"
+                        android:layout_margin="@dimen/margim_add_fragment"
+                        android:hint="@string/hint_destiny_add">
+
+                        <EditText
+                            android:id="@+id/editTextDestiny"
+                            style="@style/EditTextStyle" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageAddShow"
+                    android:layout_width="@dimen/destination_width"
+                    android:layout_height="@dimen/destination_height"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:scaleType="centerInside"
+                    android:background="@drawable/border_rect_linear"
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:clickable="true" />
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_menu_save"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/colorPrimaryDark" />
+
+</android.support.design.widget.CoordinatorLayout>
