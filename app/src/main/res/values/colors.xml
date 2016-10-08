@@ -6,4 +6,8 @@
     <color name="colorLinearSelect">#CDDC39</color>
     <color name="colorLinear">#F0F4C3</color>
     <color name="colorButton">#303F9F</color>
+
+    <color name="listItemOne">#ffffff</color>
+    <color name="listItemTwo">#e8eefe</color>
+    <color name="listItemSelected">#3F51B5</color>
 </resources>

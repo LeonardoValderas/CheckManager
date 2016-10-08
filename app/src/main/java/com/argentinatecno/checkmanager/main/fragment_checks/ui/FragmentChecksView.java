@@ -27,4 +27,6 @@ public interface FragmentChecksView {
 
     void closeDialogUpdateBackError(String error);
 
+    void setChecksSearch(List<Check> checks);
+
 }

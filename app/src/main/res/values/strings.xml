@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">CheQues</string>
+    <string name="app_name">Mis Cheques</string>
+    <string name="email">Email</string>
+    <string name="search">Buscar</string>
     <string name="string_item_nav">Cheques</string>
-    <string name="action_settings">Opciones</string>
+    <string name="action_mail">Configurar aviso email</string>
+    <string name="search_hint">Buscar Cheques</string>
     <!--tabs-->
     <string name="string_tab_cargar">CARGAR</string>
     <string name="string_tab_cheques">CHEQUES</string>

@@ -68,8 +68,8 @@ public class FragmentAdd extends Fragment implements FragmentAddView {
     Spinner yearsExpiration;
     @Bind(R.id.spinnerTypeChecks)
     Spinner spinnerTypeChecks;
-    @Bind(R.id.imageAddPhoto)
-    ImageView imageAddPhoto;
+    //    @Bind(R.id.imageAddPhoto)
+//    ImageView imageAddPhoto;
     @Bind(R.id.editTextDestiny)
     EditText editTextDestiny;
     @Bind(R.id.imageAddShow)
@@ -203,7 +203,7 @@ public class FragmentAdd extends Fragment implements FragmentAddView {
         });
     }
 
-    @OnClick(R.id.imageAddPhoto)
+    @OnClick(R.id.imageAddShow)
     public void takePicture() {
         Intent chooserIntent = null;
         List<Intent> intentList = new ArrayList<>();
@@ -261,19 +261,22 @@ public class FragmentAdd extends Fragment implements FragmentAddView {
 
             boolean isCamera = (data == null ||
                     data.getData() == null);
+            int w = imageAddShow.getWidth();
+            int h = imageAddShow.getHeight();
             if (isCamera) {
-
-                bitmap = auxiliaryGeneral.getResizedBitmap(BitmapFactory.decodeFile(photoPath),1024,1024);
-             //   bitmap = auxiliaryGeneral.getBitmapForPath(photoPath, mDstWidth, mDstHeight);
+                bitmap = setResizaInage(photoPath, w, h);
             } else {
                 photoPath = auxiliaryGeneral.selectImageForData(data, getActivity());
-               // bitmap = auxiliaryGeneral.getBitmapForPath(photoPath, mDstWidth, mDstHeight);
-                bitmap = auxiliaryGeneral.getResizedBitmap(BitmapFactory.decodeFile(photoPath),1024,1024);
+                bitmap = setResizaInage(photoPath, w, h);
             }
             setImageView(bitmap);
         }
     }
 
+
+    public Bitmap setResizaInage(String photoPath, int w, int h) {
+        return auxiliaryGeneral.getResizedBitmap(photoPath, w, h);
+    }
     private void setImageView(Bitmap bitmap) {
 
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -337,8 +340,13 @@ public class FragmentAdd extends Fragment implements FragmentAddView {
         if (typePosition == 0) {
             check.setOrigin(editTextOrigin.getText().toString());
         }
+
         check.setDestiny(editTextDestiny.getText().toString());
-        check.setDestinyDate(auxiliaryGeneral.dateNowShot());
+        if (editTextDestiny.getText().toString().isEmpty())
+            check.setDestinyDate("");
+        else
+            check.setDestinyDate(auxiliaryGeneral.dateNowShot());
+
         if (!update)
             presenter.saveCheck(check, getActivity());
         else
@@ -363,8 +371,6 @@ public class FragmentAdd extends Fragment implements FragmentAddView {
             editTextOrigin.setText(check.getOrigin().toString());
 
         editTextDestiny.setText(check.getDestiny().toString());
-
-        //  .setText(check.getDestiny().toString());
 
         if (check.getPhoto() != null)
             imageLoader.load(imageAddShow, check.getPhoto());

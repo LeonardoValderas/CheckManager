@@ -27,7 +27,7 @@ public class GlideImageLoader implements ImageLoader {
         glideRequestManager
                 .load(bytes).asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .fitCenter()
+                .override(270,180)
                 .into(imageView);
     }
 
@@ -37,6 +37,7 @@ public class GlideImageLoader implements ImageLoader {
                 .load(bytes).asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .fitCenter()
+                .override(500,350)
                 .into(imageView);
     }
 }

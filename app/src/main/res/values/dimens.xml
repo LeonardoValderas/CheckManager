@@ -9,8 +9,8 @@
     <dimen name="margim_cargar_linear_list_item">1dp</dimen>
     <dimen name="margim_view">5dp</dimen>
     <dimen name="image_size_list_item">50dp</dimen>
-    <dimen name="destination_width">150dip</dimen>
-    <dimen name="destination_height">150dip</dimen>
+    <dimen name="destination_width">180dip</dimen>
+    <dimen name="destination_height">120dip</dimen>
     <dimen name="row_icons_padding">1dp</dimen>
     <dimen name="fab_margin">8dp</dimen>
     <dimen name="margim_add_fragment">2dp</dimen>

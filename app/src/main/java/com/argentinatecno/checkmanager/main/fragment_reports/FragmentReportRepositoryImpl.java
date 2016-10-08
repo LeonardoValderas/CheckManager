@@ -26,7 +26,7 @@ public class FragmentReportRepositoryImpl implements FragmentReportRepository {
 
     @Override
     public void getMaturitiesWeek(String date) {
-        if (date != null) {
+        if (date != null && !date.isEmpty()) {
             String since = date.substring(0, 8);
             String until = date.substring(8, 16);
             instanceController(context);

@@ -17,6 +17,7 @@ public class FragmentChecksEvent {
     public static final int selectType = 1;
     public static final int updateType = 2;
     public static final int updateBackType = 3;
+    public static final int selectSearchType = 4;
 
     public static final String sucessDelete = "Cheque eliminado.";
     public static final String errorDelete = "Error al intentar eliminar el cheque.";
@@ -25,6 +26,7 @@ public class FragmentChecksEvent {
     public static final String sucessBackUpdate = "Cheque actualizado.";
     public static final String errorBackUpdate = "Error al intentar actualizar al cheque.";
     public static final String errorEmpty = "Ingrese el destino del cheque.";
+    public static final String searchEmpty = "No se encontrarón cheques.";
 
 
     public List<Check> getChecksList() {

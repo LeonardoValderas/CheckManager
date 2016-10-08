@@ -17,4 +17,5 @@ public interface FragmentChecksPresenter {
     void updateCheckDestiny(int id, String destiny, String destinyDate, boolean isUpdate);
     void onEventMainThread(FragmentChecksEvent event);
     void showAlert(Context context, ImageLoader imageLoader, byte[] bytes);
+    void getChecksSearch(String s);
 }

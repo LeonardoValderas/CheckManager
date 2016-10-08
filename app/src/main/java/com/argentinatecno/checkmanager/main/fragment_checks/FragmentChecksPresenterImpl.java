@@ -10,6 +10,7 @@ import com.argentinatecno.checkmanager.main.fragment_checks.ui.FragmentChecksVie
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentChecksPresenterImpl implements FragmentChecksPresenter {
@@ -97,6 +98,15 @@ public class FragmentChecksPresenterImpl implements FragmentChecksPresenter {
                         view.closeDialogUpdateBackError(errorBackUpdate);
                     }
                     break;
+                case FragmentChecksEvent.selectSearchType:
+                    String emptySearch = event.getEmpty();
+                    if (emptySearch == null)
+                        view.setChecksSearch(event.getChecksList());
+                    else {
+                        view.setChecksSearch(new ArrayList<Check>());
+                        view.emptyList(emptySearch);
+                    }
+                    break;
             }
         }
     }
@@ -104,6 +114,11 @@ public class FragmentChecksPresenterImpl implements FragmentChecksPresenter {
     @Override
     public void showAlert(Context context, ImageLoader imageLoader, byte[] bytes) {
         //   new DeliveryOtherFragmentImageAdapter(context,imageLoader,bytes).alertDialog.show();
+    }
+
+    @Override
+    public void getChecksSearch(String s) {
+        interactor.getChecksSearch(s);
     }
 }
 

@@ -144,6 +144,46 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/linearDestiny"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:id="@+id/textTitleOrigin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margim_cargar_list_item"
+                                android:text="Recibido de : "
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textOrigin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margim_cargar_list_item"
+                                android:text="Juan Perez" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <!--linear edit Button -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <!--linear destiny + destinydate-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
                         <!--linear destiny-->
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -166,80 +206,45 @@
                                 android:text="Juan Pardo" />
 
                         </LinearLayout>
-                        <!--linear origin-->
 
-
-                    </LinearLayout>
-                    <!--linear edit Button -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5">
-
-                        <ImageButton
-                            android:id="@+id/imgButtonEdit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margim_cargar_list_item"
-                            android:background="@android:color/transparent"
-                            android:src="@android:drawable/ic_menu_edit"
-                            android:tint="@android:color/darker_gray" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!--linear destiny + destinydate-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-                    <!--linear destiny date-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textTitleDestinyDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margim_cargar_list_item"
-                            android:text="Fecha de entrega: "
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/textDestinyDate"
+                        <!--linear destiny date-->
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margim_cargar_list_item"
-                            android:text="02-08-2016" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textTitleDestinyDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margim_cargar_list_item"
+                                android:text="Fecha de entrega: "
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textDestinyDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margim_cargar_list_item"
+                                android:text="02-08-2016" />
+                        </LinearLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/linearDestiny"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-
-                        <TextView
-                            android:id="@+id/textTitleOrigin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margim_cargar_list_item"
-                            android:text="Recibido de : "
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/textOrigin"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margim_cargar_list_item"
-                            android:text="Juan Perez" />
+                            android:layout_weight="6">
 
+                            <ImageButton
+                                android:id="@+id/imgButtonEdit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margim_cargar_list_item"
+                                android:background="@android:color/transparent"
+                                android:src="@android:drawable/ic_menu_edit"
+                                android:tint="@android:color/darker_gray" />
                     </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

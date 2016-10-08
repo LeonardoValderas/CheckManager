@@ -28,7 +28,7 @@
 
                 <LinearLayout
                     android:id="@+id/linearAddOne"
-                    android:layout_width="match_parent"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -37,11 +37,11 @@
                         style="@style/SpinnerStyle"
                         android:background="@drawable/border_style_spinner" />
 
-                    <ImageView
-                        android:id="@+id/imageAddPhoto"
-                        style="@style/ImagePhotoStyle"
-                        android:background="@drawable/border_rect_linear"
-                        android:src="@android:drawable/ic_menu_camera" />
+                    <!--<ImageView-->
+                        <!--android:id="@+id/imageAddPhoto"-->
+                        <!--style="@style/ImagePhotoStyle"-->
+                        <!--android:background="@drawable/border_rect_linear"-->
+                        <!--android:src="@android:drawable/ic_menu_camera" />-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -148,10 +148,9 @@
                     android:layout_height="@dimen/destination_height"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
-                    android:scaleType="centerInside"
-                    android:background="@drawable/border_rect_linear"
                     android:src="@android:drawable/ic_menu_gallery"
                     android:clickable="true" />
+                <!--android:background="@drawable/border_rect_linear"-->
 
             </LinearLayout>
         </ScrollView>

@@ -41,13 +41,13 @@ public class FragmentChecksRepositoryImpl implements FragmentChecksRepository {
         if (destiny != null)
             if (!destiny.isEmpty()) {
                 if (dataBaseController.updateCheckDestiny(id, destiny, destinyDate)) {
-                    checksList = dataBaseController.selectAllCheck(false);
+                    checksList = dataBaseController.selectAllCheck();
                     post(FragmentChecksEvent.updateType, checksList, FragmentChecksEvent.sucessUpdate);
                 } else
                     post(FragmentChecksEvent.updateType, FragmentChecksEvent.errorUpdate, true);
             } else if (destiny.isEmpty() && !isUpdate) {
                 if (dataBaseController.updateCheckDestiny(id, destiny, destinyDate)) {
-                    checksList = dataBaseController.selectAllCheck(false);
+                    checksList = dataBaseController.selectAllCheck();
                     post(FragmentChecksEvent.updateBackType, checksList, FragmentChecksEvent.sucessBackUpdate);
                 } else
                     post(FragmentChecksEvent.updateBackType, FragmentChecksEvent.errorBackUpdate, true);
@@ -59,11 +59,22 @@ public class FragmentChecksRepositoryImpl implements FragmentChecksRepository {
     @Override
     public void selectAll() {
         instanceController(context);
-        checksList = dataBaseController.selectAllCheck(false);
+        checksList = dataBaseController.selectAllCheck();
 //        FlowCursorList<Check> storedChecks = new FlowCursorList<Check>(false, Check.class);
 //        storedChecks.setCacheModels(true, Math.max(1, storedChecks.getCount()));
         if (checksList != null)
-            post(FragmentChecksEvent.selectType, checksList);
+            post(FragmentChecksEvent.selectSearchType, checksList);
+    }
+
+    @Override
+    public void getChecksSearch(String s) {
+        instanceController(context);
+        checksList = dataBaseController.selectAllCheckForSearch(s);
+        if (checksList != null && checksList.size() > 0) {
+           post(FragmentChecksEvent.selectSearchType, checksList);
+        } else {
+            post(FragmentChecksEvent.selectSearchType, true, FragmentChecksEvent.searchEmpty);
+        }
     }
 
     private void post(int type, String sucess, Check check) {

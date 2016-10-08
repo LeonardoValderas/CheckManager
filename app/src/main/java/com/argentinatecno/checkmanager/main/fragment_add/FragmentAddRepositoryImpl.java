@@ -27,6 +27,8 @@ public class FragmentAddRepositoryImpl implements FragmentAddRepository {
             post("Ingrese una fecha de vencimiento valida.");
         } else if ((check.getOrigin() == null || check.getOrigin().equals("")) && check.getType() == 0) {
             post("Ingrese el origen del cheque.");
+        } else if ((check.getDestiny() == null || check.getDestiny().equals("")) && check.getType() == 1) {
+            post("Ingrese el destino del cheque.");
         } else {
             try {
                 instanceController(context);

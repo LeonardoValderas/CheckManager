@@ -1,17 +1,22 @@
 package com.argentinatecno.checkmanager.main.activity.ui;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
 import com.argentinatecno.checkmanager.R;
 import com.argentinatecno.checkmanager.main.activity.Communicator;
 import com.argentinatecno.checkmanager.main.activity.ui.adapters.SectionsPagerAdapter;
@@ -37,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements Communicator {
     SectionsPagerAdapter adapter;
     int counter = 0;
     boolean is_action_mode = false;
+    boolean update = false;
+    private static final int PERMISSION_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +52,51 @@ public class MainActivity extends AppCompatActivity implements Communicator {
         ButterKnife.bind(this);
         setupInjection();
         setupNavigation();
+        if (!checkPermission())
+            showDialogPermission();
+//            requestPermission();
+//        else
+
     }
 
     private void setupNavigation() {
         counterText.setText(getString(R.string.string_item_nav));
         setSupportActionBar(toolbar);
-
+        update = getIntent().getBooleanExtra("update", false);
         viewPager.setAdapter(adapter);
         tabs.setupWithViewPager(viewPager);
-        viewPager.setCurrentItem(1);
+        if (!update)
+            viewPager.setCurrentItem(1);
+    }
+
+    public void showDialogPermission() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Es necesario activar el almacenamiento externo.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                requestPermission();
+            }
+        });
+        builder.show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode != PERMISSION_REQUEST_CODE) {
+            return;
+        }
+        boolean isGranted = true;
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                isGranted = false;
+                break;
+            }
+        }
+
+        if (!isGranted)
+            showDialogPermission();
     }
 
     private void setupInjection() {
@@ -63,6 +106,19 @@ public class MainActivity extends AppCompatActivity implements Communicator {
                 new FragmentChecks(), new FragmentReport()};
         adapter = new SectionsPagerAdapter(getSupportFragmentManager(), titles, fragments);
     }
+
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED)
+            return true;
+        else
+            return false;
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+    }
+
 
     @Override
     public void refresh() {
@@ -101,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements Communicator {
     public void clearActionMode() {
         is_action_mode = false;
         toolbar.getMenu().clear();
-        toolbar.inflateMenu(R.menu.menu_check);
+        toolbar.inflateMenu(R.menu.menu_search);
         counterText.setText(getString(R.string.app_name));
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getFragmentChecks().clearListSelected();
@@ -124,16 +180,14 @@ public class MainActivity extends AppCompatActivity implements Communicator {
             getFragmentChecks().shareClick();
             return true;
         }
+        if (id == R.id.email) {
+            getFragmentChecks().emailClick();
+            return true;
+        }
         if (id == android.R.id.home) {
             if (is_action_mode) {
                 clearActionMode();
-                //   is_action_mode = false;
-
             }
-
-//            else {
-//                NavUtils.navigateUpFromSameTask(this);
-//            }
             return true;
         }
         return true;

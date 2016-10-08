@@ -39,7 +39,7 @@ public class DialogClickImage {
         ButterKnife.bind(this, layout);
         if(check != null)
         if(check.getPhoto() != null)
-        imageLoader.load(imageAdapter, check.getPhoto());
+        imageLoader.loadDialog(imageAdapter, check.getPhoto());
         PhotoViewAttacher photoView = new PhotoViewAttacher(imageAdapter);
         photoView.update();
         buttonCerrar.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +49,7 @@ public class DialogClickImage {
             }
         });
         alertDialog = builder.create();
-        alertDialog.getWindow().setLayout(550, 700);
+        alertDialog.getWindow().setLayout(550, 500);
         alertDialog.show();
 
     }

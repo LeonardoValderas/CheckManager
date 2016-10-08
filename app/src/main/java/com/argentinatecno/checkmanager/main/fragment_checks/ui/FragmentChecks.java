@@ -1,15 +1,26 @@
 package com.argentinatecno.checkmanager.main.fragment_checks.ui;
 
+import android.annotation.TargetApi;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.argentinatecno.checkmanager.CheckManagerApp;
 import com.argentinatecno.checkmanager.R;
@@ -18,6 +29,7 @@ import com.argentinatecno.checkmanager.entities.Check;
 import com.argentinatecno.checkmanager.lib.base.ImageLoader;
 import com.argentinatecno.checkmanager.main.activity.Communicator;
 import com.argentinatecno.checkmanager.main.activity.ui.MainActivity;
+import com.argentinatecno.checkmanager.main.activity_maturities.ui.MaturitiesActivity;
 import com.argentinatecno.checkmanager.main.fragment_checks.FragmentChecksPresenter;
 import com.argentinatecno.checkmanager.main.fragment_checks.adapters.FragmentChecksAdapter;
 import com.argentinatecno.checkmanager.main.fragment_checks.adapters.OnItemClickListener;
@@ -55,6 +67,8 @@ public class FragmentChecks extends Fragment implements FragmentChecksView, OnIt
     private int counter = 0;
     private AuxiliaryGeneral auxiliaryGeneral;
 
+    Context context;
+
     public FragmentChecks() {
     }
 
@@ -71,12 +85,13 @@ public class FragmentChecks extends Fragment implements FragmentChecksView, OnIt
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
         setupInjection();
         presenter.onCreate();
         communicator = (Communicator) getActivity();
         auxiliaryGeneral = new AuxiliaryGeneral(getActivity());
         getChecks();
+        context = getActivity().getApplicationContext();
     }
 
     public void deleteClick() {
@@ -89,6 +104,11 @@ public class FragmentChecks extends Fragment implements FragmentChecksView, OnIt
     public void shareClick() {
         auxiliaryGeneral.share(checks_select, getActivity());
         communicator.clearActionMode();
+    }
+
+    public void emailClick() {
+        if (!auxiliaryGeneral.email(checks, getActivity()))
+            showSnack("Erro al enviar Email");
     }
 
     private void setupRecyclerView() {
@@ -167,6 +187,14 @@ public class FragmentChecks extends Fragment implements FragmentChecksView, OnIt
     }
 
     @Override
+    public void setChecksSearch(List<Check> checks) {
+        if (checks != null) {
+            this.checks = checks;
+            adapter.setChecks(checks);
+        }
+    }
+
+    @Override
     public void onDeleteClick(List<Check> checks) {
         presenter.removeCheck(checks);
     }
@@ -180,6 +208,7 @@ public class FragmentChecks extends Fragment implements FragmentChecksView, OnIt
     public void onEditClick(Check check) {
         intentEditCheck(check);
     }
+
     @Override
     public void onClickLinearLayout(View v, int position, boolean isSelected) {
         if (!isSelected) {
@@ -204,7 +233,7 @@ public class FragmentChecks extends Fragment implements FragmentChecksView, OnIt
 
     @Override
     public void onClickDestinyLinearLayout(View v, final Check check, boolean isDestiny) {
-        if(isDestiny) {
+        if (isDestiny) {
             dialogClickLinear = new DialogClickLinear(getContext(), check);
             dialogClickLinear.buttonSaveDestiny.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -212,8 +241,8 @@ public class FragmentChecks extends Fragment implements FragmentChecksView, OnIt
                     presenter.updateCheckDestiny(check.getId_check(), dialogClickLinear.textReceiverDestiny.getText().toString(), auxiliaryGeneral.dateNowShot(), true);
                 }
             });
-        }else{
-            dialogClickLinearBack = new DialogClickLinearBack(getContext(),check);
+        } else {
+            dialogClickLinearBack = new DialogClickLinearBack(getContext(), check);
             dialogClickLinearBack.buttonAcceptDestiny.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -241,6 +270,7 @@ public class FragmentChecks extends Fragment implements FragmentChecksView, OnIt
     }
 
     public void intentEditCheck(Check check) {
+
         Intent intent = new Intent(getActivity(), MainActivity.class);
         intent.putExtra("update", true);
         intent.putExtra("id", check.getId_check());
@@ -251,9 +281,8 @@ public class FragmentChecks extends Fragment implements FragmentChecksView, OnIt
         intent.putExtra("photo", check.getPhoto());
         intent.putExtra("destiny", check.getDestiny());
         intent.putExtra("destiny_date", check.getDestinyDate());
-        if(check.getType() == 0) //0=other //1=own
+        if (check.getType() == 0) //0=other //1=own
             intent.putExtra("origin", check.getOrigin());
-
         startActivity(intent);
     }
 
@@ -264,7 +293,43 @@ public class FragmentChecks extends Fragment implements FragmentChecksView, OnIt
         is_action_mode = false;
     }
 
-    public void showSnack(String msg){
+    public void showSnack(String msg) {
         Snackbar.make(frameList, msg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu_search, menu);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            SearchManager manager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+            SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
+            search.setSearchableInfo(manager.getSearchableInfo(getActivity().getComponentName()));
+
+            search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+
+                    if (s != null && !s.equals(""))
+                        presenter.getChecksSearch(s);
+                    else
+                        getChecks();
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+
+                    if (s != null && !s.equals(""))
+                        presenter.getChecksSearch(s);
+                    else
+                        getChecks();
+                    return false;
+                }
+
+            });
+
+        }
     }
 }

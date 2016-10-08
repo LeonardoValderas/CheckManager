@@ -26,5 +26,10 @@ public class FragmentChecksInteractorImpl implements FragmentChecksInteractor {
         repository.selectAll();
     }
 
+    @Override
+    public void getChecksSearch(String s) {
+        repository.getChecksSearch(s);
+    }
+
 }
 
