@@ -99,6 +99,7 @@ public class MaturitiesActivity extends AppCompatActivity implements MaturitiesV
     private AuxiliaryGeneral auxiliaryGeneral;
     private List<Check> checks = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,6 +198,7 @@ public class MaturitiesActivity extends AppCompatActivity implements MaturitiesV
             }
         });
     }
+
 
     @Override
     public void emptyMaturities(String empty) {

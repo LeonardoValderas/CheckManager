@@ -15,7 +15,7 @@ import java.util.List;
 public class MaturitiesRepositoryImpl implements MaturitiesRepository {
     EventBus eventBus;
     DataBaseController dataBaseController;
-    int amountOwn = 0, amountOtherInBag = 0, amountOtherDelivery = 0, totalAmount = 0;
+    Double amountOwn = 0.0, amountOtherInBag = 0.0, amountOtherDelivery = 0.0, totalAmount = 0.0;
     int quantityOwn = 0, quantityOtherInBag = 0, quantityOtherDelivery = 0, totalQuantity = 0;
     String numbersOwn = null;
     String numbersOtherInBag = null;
@@ -40,35 +40,18 @@ public class MaturitiesRepositoryImpl implements MaturitiesRepository {
                 if (arrayChecks != null) {
                     maturities = new Maturities();
                     if (arrayChecks.size() > 0) {
-                        //    maturities = new Maturities();
+
                         for (int i = 0; i < arrayChecks.size(); i++) {
 
                             if (arrayChecks.get(i).getType() == 1) {//own
-                                amountOwn += Integer.parseInt(arrayChecks.get(i).getAmount());
+                                amountOwn += Double.parseDouble(arrayChecks.get(i).getAmount());
                                 quantityOwn++;
-
-//                                if (quantityOwn == 1)
-//                                    numbersOwn = arrayChecks.get(i).getNumber();
-//                                else
-//                                    numbersOwn += " - " + arrayChecks.get(i).getNumber();
-
-
                             } else if (arrayChecks.get(i).getType() == 0 && (arrayChecks.get(i).getDestiny() == "" || arrayChecks.get(i).getDestiny() == null)) {//other in bag
-                                amountOtherInBag += Integer.parseInt(arrayChecks.get(i).getAmount());
+                                amountOtherInBag += Double.parseDouble(arrayChecks.get(i).getAmount());
                                 quantityOtherInBag++;
-
-//                                if (quantityOtherInBag == 1)
-//                                    numbersOtherInBag = arrayChecks.get(i).getNumber();
-//                                else
-//                                    numbersOtherInBag += " - " + arrayChecks.get(i).getNumber();
                             } else {
-                                amountOtherDelivery += Integer.parseInt(arrayChecks.get(i).getAmount());
+                                amountOtherDelivery += Double.parseDouble(arrayChecks.get(i).getAmount());
                                 quantityOtherDelivery++;
-
-//                                if (quantityOtherDelivery == 1)
-//                                    numbersOtherDelivery = arrayChecks.get(i).getNumber();
-//                                else
-//                                    numbersOtherDelivery += "/" + arrayChecks.get(i).getNumber();
                             }
                         }
 
@@ -132,18 +115,6 @@ public class MaturitiesRepositoryImpl implements MaturitiesRepository {
         maturities.setQuantityOther(String.valueOf(quantityOtherDelivery+quantityOtherInBag));
         maturities.setAmountOwn(String.valueOf(amountOwn));
         maturities.setQuantityOwn(String.valueOf(quantityOwn));
-        //   maturities.setAmountOtherDelivery(String.valueOf(amountOtherDelivery));
-        //  maturities.setQuantityOtherDelivery(String.valueOf(quantityOtherDelivery));
-        // maturities.setAmountOtherInBag(String.valueOf(amountOtherInBag));
-        // maturities.setQuantityOtherInBag(String.valueOf(quantityOtherInBag));
-
-//        if (numbersOwn != null)
-//            maturities.setNumbersOwn(numbersOwn);
-//        if (numbersOtherDelivery != null)
-//            maturities.setNumbersOtherDelivery(numbersOtherDelivery);
-//        if (numbersOtherInBag != null)
-//            maturities.setNumbersOtherInBag(numbersOtherInBag);
-
     }
 
     public void cleanString() {
@@ -151,10 +122,10 @@ public class MaturitiesRepositoryImpl implements MaturitiesRepository {
         numbersOtherInBag = "";
         numbersOtherDelivery = "";
         arrayChecks.isEmpty();
-        amountOwn = 0;
-        amountOtherInBag = 0;
-        amountOtherDelivery = 0;
-        totalAmount = 0;
+        amountOwn = 0.0;
+        amountOtherInBag = 0.0;
+        amountOtherDelivery = 0.0;
+        totalAmount = 0.0;
         quantityOwn = 0;
         quantityOtherInBag = 0;
         quantityOtherDelivery = 0;

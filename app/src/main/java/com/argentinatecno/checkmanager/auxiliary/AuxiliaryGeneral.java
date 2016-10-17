@@ -12,11 +12,15 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+
 import com.argentinatecno.checkmanager.entities.Check;
 import com.argentinatecno.checkmanager.entities.Share;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -95,8 +99,8 @@ public class AuxiliaryGeneral {
         firstWkDay = firstWkDay.substring(0, 6);
         day = day - 2;
         String dayStg = String.valueOf(day);
-        if(dayStg.length() < 2){
-            dayStg = "0"+ dayStg;
+        if (dayStg.length() < 2) {
+            dayStg = "0" + dayStg;
         }
         firstWkDay = firstWkDay + dayStg;
         cal.set(Calendar.DAY_OF_WEEK, 6);
@@ -235,9 +239,6 @@ public class AuxiliaryGeneral {
             else {
                 Drawable d = ContextCompat.getDrawable(context, android.R.drawable.ic_menu_camera);
                 bitmap = drawableToBitmap(d);
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//                bytePhoto = stream.toByteArray();
             }
 
             if (bitmap != null) {
@@ -288,7 +289,6 @@ public class AuxiliaryGeneral {
         }
     }
 
-
     public String setTextConcatenate(Check check) {
 
         String text = null;
@@ -328,5 +328,32 @@ public class AuxiliaryGeneral {
         return bitmap;
     }
 
+    public static class CurrencyFormat implements TextWatcher {
 
+        public void onTextChanged(CharSequence arg0, int start, int arg2, int arg3) {
+        }
+
+        public void beforeTextChanged(CharSequence arg0, int start, int arg2, int arg3) {
+        }
+
+        public void afterTextChanged(Editable arg0) {
+            int length = arg0.length();
+            if (length > 0) {
+                if (nrOfDecimal(arg0.toString()) > 2)
+                    arg0.delete(length - 1, length);
+            }
+        }
+
+        private int nrOfDecimal(String nr) {
+            int len = nr.length();
+            int pos = len;
+            for (int i = 0; i < len; i++) {
+                if (nr.charAt(i) == '.') {
+                    pos = i + 1;
+                    break;
+                }
+            }
+            return len - pos;
+        }
+    }
 }

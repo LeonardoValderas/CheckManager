@@ -91,9 +91,9 @@ public class FragmentAdd extends Fragment implements FragmentAddView {
     private ArrayAdapter<String> typeCheckAdapter;
     private int iMonth;
     private int iYear;
-    private int mDstWidth;
-    private int mDstHeight;
-
+    // private int mDstWidth;
+    // private int mDstHeight;
+    private AuxiliaryGeneral.CurrencyFormat watcher = new AuxiliaryGeneral.CurrencyFormat();
 
     public FragmentAdd() {
     }
@@ -150,8 +150,8 @@ public class FragmentAdd extends Fragment implements FragmentAddView {
     }
 
     private void fillSpinnerDate() {
-        mDstWidth = getResources().getDimensionPixelSize(R.dimen.destination_width);
-        mDstHeight = getResources().getDimensionPixelSize(R.dimen.destination_height);
+        //   mDstWidth = getResources().getDimensionPixelSize(R.dimen.destination_width);
+        //   mDstHeight = getResources().getDimensionPixelSize(R.dimen.destination_height);
 
         typeCheckAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simple_spinner_item, getResources().getStringArray(R.array.type_checks));
         typeCheckAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -277,6 +277,7 @@ public class FragmentAdd extends Fragment implements FragmentAddView {
     public Bitmap setResizaInage(String photoPath, int w, int h) {
         return auxiliaryGeneral.getResizedBitmap(photoPath, w, h);
     }
+
     private void setImageView(Bitmap bitmap) {
 
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -396,5 +397,6 @@ public class FragmentAdd extends Fragment implements FragmentAddView {
 
     public void initOnClickEditText(View v) {
         auxiliaryGeneral.initOnClickEditText(v);
+        editTextAmount.addTextChangedListener(watcher);
     }
 }
